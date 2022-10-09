@@ -7,7 +7,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import cl.gringraz.marvelcatalog.R
 import cl.gringraz.marvelcatalog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

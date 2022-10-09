@@ -8,7 +8,9 @@ object Deps {
         const val viewModel          = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
         const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:2.5.2"
         const val navigationUi       = "androidx.navigation:navigation-ui-ktx:2.5.2"
+    }
 
+    object androidxTest {
         const val junitExtensions   = "androidx.test.ext:junit:1.1.3"
         const val testRunner        = "androidx.test:runner:1.4.0"
         const val testCore          = "androidx.test:core:1.4.0"
@@ -20,14 +22,13 @@ object Deps {
     }
 
     object test {
-        const val plugin         = "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
-        const val api            = "org.junit.jupiter:junit-jupiter-api:5.7.1"
-        const val params         = "org.junit.jupiter:junit-jupiter-params:5.7.1"
+        const val api           = "org.junit.jupiter:junit-jupiter-api:5.7.1"
+        const val params        = "org.junit.jupiter:junit-jupiter-params:5.7.1"
         const val jupiterEngine = "org.junit.jupiter:junit-jupiter-engine:5.7.1"
         const val runner        = "org.junit.platform:junit-platform-runner:1.7.1"
         const val kotlinTests   = "org.jetbrains.kotlin:kotlin-test-junit:1.6.20"
-        const val mockk          = "io.mockk:mockk:1.10.6"
-        const val mockkAndroid  = "io.mockk:mockk-android:1.10.6"
+        const val mockkAgent    = "io.mockk:mockk-agent:1.13.2"
+        const val mockkAndroid  = "io.mockk:mockk-android:1.13.2"
     }
 
     object google {
@@ -53,13 +54,16 @@ object Deps {
     }
 
     // List experiment
-    val android = listOf(
+    val androidX = listOf(
         "androidx.appcompat:appcompat:1.5.1",
         "androidx.constraintlayout:constraintlayout:2.1.4",
         "androidx.recyclerview:recyclerview:1.2.1",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1",
         "androidx.navigation:navigation-fragment-ktx:2.5.2",
         "androidx.navigation:navigation-ui-ktx:2.5.2",
+    )
+
+    val androidXTest = listOf(
         "androidx.test.ext:junit:1.1.3",
         "androidx.test:runner:1.4.0",
         "androidx.test:core:1.4.0",
