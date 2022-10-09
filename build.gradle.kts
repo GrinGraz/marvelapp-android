@@ -11,7 +11,6 @@ plugins {
     id(Plugins.ktLint.name) version Plugins.ktLint.version
 }
 
-
 allprojects {
     repositories.applyDefault()
 
@@ -39,6 +38,7 @@ allprojects {
     }
 
     detekt {
+        toolVersion = "1.20.0"
         config = rootProject.files("$rootDir/.detekt/config.yml")
         reports {
             html {

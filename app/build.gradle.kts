@@ -36,11 +36,31 @@ android {
 
 dependencies {
     // List experiment
-    Deps.third.forEach{ dep -> implementation(dep)}
+    Deps.androidX.forEach { dep -> implementation(dep) }
+    Deps.third.forEach { dep -> implementation(dep) }
     Deps.square.forEach { dep -> implementation(dep) }
-    Deps.android.forEach { dep -> implementation(dep) }
-    Deps.testing.forEach { dep -> implementation(dep) }
     Deps.coroutine.forEach { dep -> implementation(dep) }
 
     implementation(Deps.google.material)
+
+    testImplementation(Deps.test.api)
+    testImplementation(Deps.test.params)
+    testImplementation(Deps.test.kotlinTests)
+    testImplementation(Deps.test.mockkAgent)
+    testImplementation(Deps.test.mockkAndroid)
+    testImplementation(Deps.coroutines.test)
+    testImplementation(Deps.androidxTest.testRules)
+    testImplementation(Deps.androidxTest.junitExtensions)
+    testRuntimeOnly(Deps.test.jupiterEngine)
+
+    androidTestUtil(Deps.androidxTest.testOrchestrator)
+    androidTestImplementation(Deps.androidxTest.testCore)
+    androidTestImplementation(Deps.androidxTest.testRunner)
+    androidTestImplementation(Deps.androidxTest.espressoCore)
+    androidTestImplementation(Deps.androidxTest.espressoContrib)
+    androidTestImplementation(Deps.androidxTest.espressoIntents)
+    androidTestImplementation(Deps.test.mockkAndroid)
+    androidTestImplementation(Deps.test.mockkAgent)
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 }
