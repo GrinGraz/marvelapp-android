@@ -43,13 +43,15 @@ object Deps {
     }
 
     object thirdParty {
-        const val coil    = "io.coil-kt:coil:2.2.2"
-        const val shimmer = "dev.volo.shimmer:shimmer:0.6.0-alpha01" // facebook shimmer build from main branch
-        const val timber  = "com.jakewharton.timber:timber:5.0.1"
+        const val coil      = "io.coil-kt:coil:2.2.2"
+        const val shimmer   = "dev.volo.shimmer:shimmer:0.6.0-alpha01" // facebook shimmer build from main branch
+        const val timber    = "com.jakewharton.timber:timber:5.0.1"
+        const val arrowCore = "io.arrow-kt:arrow-core:1.1.2"
     }
 
     object coroutines {
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+        const val core    = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
         const val test    = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     }
 

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="cl.gringraz.marvelcatalog.ui.home.HomeFragment"
+        android:name="cl.gringraz.marvelcatalog.feature.characterslist.CharactersListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_character_list" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

@@ -15,4 +15,9 @@ pluginManagement {
 }
 
 rootProject.name = "Marvel Catalog"
-include(":app")
+include(
+    ":app",
+    ":core:network",
+    ":feature:characterslist",
+    ":feature:characterdetail"
+)

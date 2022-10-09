@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Marvel_Catalog.app" target="11" />
+      <module name="Marvel_Catalog.buildSrc" target="11" />
+      <module name="Marvel_Catalog.buildSrc.main" target="11" />
+      <module name="Marvel_Catalog.buildSrc.test" target="11" />
+      <module name="Marvel_Catalog.core.network.main" target="11" />
+      <module name="Marvel_Catalog.core.network.test" target="11" />
+      <module name="Marvel_Catalog.feature.characterdetail" target="11" />
+      <module name="Marvel_Catalog.feature.characterslist" target="11" />
+      <module name="Marvel_Catalog.feature.mylibrary.lib.main" target="11" />
+      <module name="Marvel_Catalog.feature.mylibrary.lib.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

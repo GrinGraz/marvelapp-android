@@ -35,10 +35,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:characterslist"))
+    implementation(project(":feature:characterdetail"))
     // List experiment
     Deps.androidX.forEach { dep -> implementation(dep) }
     Deps.third.forEach { dep -> implementation(dep) }
-    Deps.square.forEach { dep -> implementation(dep) }
     Deps.coroutine.forEach { dep -> implementation(dep) }
 
     implementation(Deps.google.material)
