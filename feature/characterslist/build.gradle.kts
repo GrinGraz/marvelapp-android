@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id(Plugins.junit5.name)
 }
 
 android {
@@ -40,15 +41,31 @@ android {
 
 dependencies {
     implementation(project(":core:network"))
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(project(":feature:common"))
+
+    Deps.androidX.forEach { dep -> implementation(dep) }
+    Deps.third.forEach { dep -> implementation(dep) }
+    Deps.coroutine.forEach { dep -> implementation(dep) }
+
+    testImplementation(Deps.test.api)
+    testImplementation(Deps.test.junit5)
+    testImplementation(Deps.test.params)
+    testImplementation(Deps.test.kotlinTests)
+    testImplementation(Deps.test.mockkAgent)
+    testImplementation(Deps.test.mockkAndroid)
+    testImplementation(Deps.coroutines.test)
+    testImplementation(Deps.androidxTest.testRules)
+    testImplementation(Deps.androidxTest.junitExtensions)
+    testRuntimeOnly(Deps.test.jupiterEngine)
+
+    androidTestUtil(Deps.androidxTest.testOrchestrator)
+    androidTestImplementation(Deps.androidxTest.testCore)
+    androidTestImplementation(Deps.androidxTest.testRunner)
+    androidTestImplementation(Deps.androidxTest.espressoCore)
+    androidTestImplementation(Deps.androidxTest.espressoContrib)
+    androidTestImplementation(Deps.androidxTest.espressoIntents)
+    androidTestImplementation(Deps.test.mockkAndroid)
+    androidTestImplementation(Deps.test.mockkAgent)
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 }

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id(Plugins.junit5.name)
 }
 
 android {
