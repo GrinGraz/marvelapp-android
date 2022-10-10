@@ -27,4 +27,5 @@ jobs:
     - name: Run unit test
       run: ./gradlew testDebugUnitTest
     - name: Android Test Report
-      uses: linuxias/Android-test-result-printer@v0.1.0
+      uses: asadmansr/android-test-report-action@v1.2.0
+      if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
