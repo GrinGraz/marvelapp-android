@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id(Plugins.junit5.name)
 }
 
 android {
@@ -40,12 +41,14 @@ android {
 
 dependencies {
     implementation(project(":core:network"))
+    implementation(project(":feature:common"))
 
     Deps.androidX.forEach { dep -> implementation(dep) }
     Deps.third.forEach { dep -> implementation(dep) }
     Deps.coroutine.forEach { dep -> implementation(dep) }
 
     testImplementation(Deps.test.api)
+    testImplementation(Deps.test.junit5)
     testImplementation(Deps.test.params)
     testImplementation(Deps.test.kotlinTests)
     testImplementation(Deps.test.mockkAgent)

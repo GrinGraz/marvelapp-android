@@ -22,10 +22,11 @@ object Deps {
     }
 
     object test {
-        const val api           = "org.junit.jupiter:junit-jupiter-api:5.7.1"
-        const val params        = "org.junit.jupiter:junit-jupiter-params:5.7.1"
-        const val jupiterEngine = "org.junit.jupiter:junit-jupiter-engine:5.7.1"
-        const val runner        = "org.junit.platform:junit-platform-runner:1.7.1"
+        const val junit5        = "org.junit.jupiter:junit-jupiter:5.8.2"
+        const val api           = "org.junit.jupiter:junit-jupiter-api:5.8.2"
+        const val params        = "org.junit.jupiter:junit-jupiter-params:5.8.2"
+        const val jupiterEngine = "org.junit.jupiter:junit-jupiter-engine:5.8.2"
+        const val runner        = "org.junit.platform:junit-platform-runner:1.9.1"
         const val kotlinTests   = "org.jetbrains.kotlin:kotlin-test-junit:1.6.20"
         const val mockkAgent    = "io.mockk:mockk-agent:1.13.2"
         const val mockkAndroid  = "io.mockk:mockk-android:1.13.2"

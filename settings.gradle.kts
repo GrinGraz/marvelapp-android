@@ -19,5 +19,6 @@ include(
     ":app",
     ":core:network",
     ":feature:characterslist",
-    ":feature:characterdetail"
+    ":feature:characterdetail",
+    ":feature:common"
 )
