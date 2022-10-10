@@ -1,12 +1,11 @@
 package cl.gringraz.marvelcatalog.feature.characterdetail
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import cl.gringraz.feature.marvelcatalog.characterdetail.R
-import cl.gringraz.feature.marvelcatalog.characterdetail.databinding.ActivityScrollingBinding
+import androidx.appcompat.app.AppCompatActivity
+import cl.gringraz.marvelcatalog.feature.characterdetail.databinding.ActivityScrollingBinding
+import com.google.android.material.snackbar.Snackbar
 
 class ScrollingActivity : AppCompatActivity() {
 

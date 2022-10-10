@@ -1,12 +1,11 @@
 package cl.gringraz.marvelcatalog.feature.characterdetail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cl.gringraz.feature.marvelcatalog.characterdetail.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 
 class CharacterDetailFragment : Fragment() {
 
