@@ -1,4 +1,10 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.domain.model
 
-class Thumbnail {
+data class Thumbnail(
+    val path: String,
+    val extension: String,
+) {
+    fun createImageUrl(): String {
+
+    }
 }
