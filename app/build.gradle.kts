@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace = "cl.gringraz.marvelcatalog"
     compileSdk = AppConfig.compileSdkVersion
 
     defaultConfig {
@@ -23,11 +24,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
@@ -35,10 +36,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:characterslist"))
+    implementation(project(":feature:characterdetail"))
     // List experiment
     Deps.androidX.forEach { dep -> implementation(dep) }
     Deps.third.forEach { dep -> implementation(dep) }
-    Deps.square.forEach { dep -> implementation(dep) }
     Deps.coroutine.forEach { dep -> implementation(dep) }
 
     implementation(Deps.google.material)

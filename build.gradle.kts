@@ -23,7 +23,7 @@ allprojects {
             targetCompatibility = javaVersion
 
             // Enable experimental coroutines APIs, including collectAsState()
-            freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         }
     }
 
