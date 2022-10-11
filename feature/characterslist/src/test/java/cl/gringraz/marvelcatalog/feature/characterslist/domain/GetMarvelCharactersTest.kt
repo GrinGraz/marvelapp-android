@@ -24,7 +24,7 @@ class GetMarvelCharactersTest {
     }
 
     @Test
-    @DisplayName("Get marvel chracters ok")
+    @DisplayName("Get marvel characters ok")
     fun getMarvelCharacter() = runTest {
         sut()
         coVerify { repo.getMarvelCharacters() }
