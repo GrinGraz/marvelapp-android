@@ -1,7 +1,9 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote
 
-import okhttp3.Response
+import arrow.core.Either
+import cl.gringraz.corenetwork.RemoteError
+import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.MarvelCharactersResponseModel
 
 interface MarvelCharactersRemoteSource {
-    fun getMarvelCharacters()
+    suspend fun getMarvelCharacters(): Either<RemoteError, MarvelCharactersResponseModel?>
 }

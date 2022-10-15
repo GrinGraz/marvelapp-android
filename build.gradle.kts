@@ -17,6 +17,7 @@ allprojects {
     val javaVersion = JavaVersion.VERSION_11.toString()
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+        Keys.initialize(File("auth.properties"))
         kotlinOptions {
             jvmTarget = javaVersion
             sourceCompatibility = javaVersion

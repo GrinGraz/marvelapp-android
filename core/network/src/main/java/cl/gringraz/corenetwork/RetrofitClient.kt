@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitClient<T>(
     private val apiConfig: ApiConfig,
-    private val clazz: Class<T>
+    private val clazz: Class<T>,
 ) : ApiClient<T> {
 
     override val endpoints: T by lazy {
@@ -21,6 +21,6 @@ class RetrofitClient<T>(
 
     private fun okHttpBuilder(): OkHttpClient.Builder = OkHttpBaseConfig.baseOkhttpBuilder.apply {
         readTimeout(apiConfig.timeout, TimeUnit.SECONDS)
-        if (!apiConfig.isProd) addInterceptor(OkHttpBaseConfig.createHttpLoggingInterceptor())
+        apiConfig.getInterceptors().forEach { interceptor -> addInterceptor(interceptor) }
     }
 }

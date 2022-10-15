@@ -15,10 +15,6 @@ object OkHttpBaseConfig {
         }
     }
 
-    fun createHttpLoggingInterceptor(): Interceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    }
-
     private fun createConnectionSpec(): ConnectionSpec {
         return ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
             .tlsVersions(TlsVersion.TLS_1_2)

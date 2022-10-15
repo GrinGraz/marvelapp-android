@@ -34,6 +34,7 @@ object Deps {
 
     object google {
         const val material = "com.google.android.material:material:1.6.1"
+        const val gson     = "com.google.code.gson:gson:2.9.1"
     }
 
     object squareup {
@@ -99,6 +100,7 @@ object Deps {
         "io.coil-kt:coil:2.2.2",
         "dev.volo.shimmer:shimmer:0.6.0-alpha01", // facebook shimmer build from main branch
         "com.jakewharton.timber:timber:5.0.1",
+        "io.arrow-kt:arrow-core:1.1.2",
     )
 
     val coroutine = listOf(
