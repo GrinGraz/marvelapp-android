@@ -23,6 +23,9 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
+      env: # Or as an environment variable
+        publicKey: ${{ secrets.publickey }}
+        privateKey: ${{ secrets.privatekey }}
       run: ./gradlew build
     - name: Run unit test
       run: ./gradlew testDebugUnitTest
