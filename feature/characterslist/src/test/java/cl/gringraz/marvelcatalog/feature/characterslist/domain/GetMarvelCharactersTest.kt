@@ -20,7 +20,7 @@ class GetMarvelCharactersTest {
     fun before() {
         repo = mockk()
         sut = GetMarvelCharacters { repo.getMarvelCharacters() }
-        coEvery { repo.getMarvelCharacters() } returns listOf()
+        //coEvery { repo.getMarvelCharacters() } returns listOf()
     }
 
     @Test

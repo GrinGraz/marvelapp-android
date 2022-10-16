@@ -4,5 +4,5 @@ data class MarvelCharacterModel(
     val id: Long,
     val name: String,
     val description: String?,
-    val thumbnail: Thumbnail
+    val thumbnail: ThumbnailModel
 )

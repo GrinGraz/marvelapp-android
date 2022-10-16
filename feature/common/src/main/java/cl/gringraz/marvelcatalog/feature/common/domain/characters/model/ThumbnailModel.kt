@@ -1,6 +1,6 @@
 package cl.gringraz.marvelcatalog.feature.common.domain.characters.model
 
-data class Thumbnail(
+data class ThumbnailModel(
     val path: String,
     val extension: String
 ) {

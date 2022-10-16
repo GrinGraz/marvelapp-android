@@ -34,7 +34,3 @@ private val repo: MarvelCharactersRepository by lazy {
 private val getCharactersUseCase: GetMarvelCharacters by lazy {
     GetMarvelCharacters { repo.getMarvelCharacters() }
 }
-
-internal fun charactersViewModel(): CharactersViewModel {
-    return CharactersViewModel(getCharactersUseCase)
-}
