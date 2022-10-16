@@ -4,6 +4,7 @@ import arrow.core.Either
 import cl.gringraz.corenetwork.ApiClient
 import cl.gringraz.corenetwork.ConnectionError
 import cl.gringraz.corenetwork.UnknownError
+import cl.gringraz.marvelcatalog.feature.characterslist.data.DataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelApi
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
 import io.mockk.coEvery
@@ -15,6 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -24,11 +26,11 @@ import org.junit.jupiter.api.extension.ExtendWith
 import retrofit2.HttpException
 import java.io.IOException
 
-@DisplayName("Remote Data Source Test")
 @ExperimentalCoroutinesApi
 @ExtendWith(MockKExtension::class)
 @MockKExtension.ConfirmVerification
 @MockKExtension.CheckUnnecessaryStub
+@DisplayName("Marvel Characters Remote Source Test")
 class MarvelCharactersRemoteSourceTest {
 
     lateinit var testCoroutineDispatcher: TestDispatcher
@@ -44,12 +46,12 @@ class MarvelCharactersRemoteSourceTest {
     }
 
     @Nested
-    @DisplayName("When I try to fetch marvel characters")
-    inner class FetchPendingContracts {
+    @DisplayName("Given the request for marvel characters by the remote source")
+    inner class GetMarvelCharactersByRemoteSource {
 
         @Nested
-        @DisplayName("If connection is successful")
-        inner class ConnectionIsSuccessful {
+        @DisplayName("When the request to remote is successful")
+        inner class RequestIsSuccessful {
 
             @BeforeEach
             fun before() {
@@ -57,40 +59,66 @@ class MarvelCharactersRemoteSourceTest {
             }
 
             @Test
-            @DisplayName("Then I get a list")
+            @DisplayName("Then the remote source gets a response model of marvel characters")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters() }
                 assertEquals(result, Either.Right(DataFactory.fakeMarvelCharactersResponseModel))
+            }
+
+            @AfterEach
+            fun after() {
+                coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
             }
         }
 
         @Nested
-        @DisplayName("If there is a connection error")
-        inner class ConnectionError {
+        @DisplayName("When the request fails with an http error response")
+        inner class RequestFailsWithUnknownError {
+
+            @BeforeEach
+            fun before() {
+                coEvery { apiClient.endpoints.getMarvelCharacters() } throws HttpException(
+                    DataFactory.errorResponse)
+            }
 
             @Test
-            @DisplayName("Then I get a Unknow RemoteError")
+            @DisplayName("Then the remote source gets an unknown remote error")
             fun execute() = runTest(testCoroutineDispatcher) {
-                coEvery { apiClient.endpoints.getMarvelCharacters() } throws HttpException(DataFactory.errorResponse)
                 val result = sut.getMarvelCharacters()
-                coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters() }
                 assertEquals(result, Either.Left(UnknownError))
+            }
+
+            @AfterEach
+            fun after() {
+                coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
+            }
+        }
+
+        @Nested
+        @DisplayName("When the request fails with a connection error")
+        inner class RequestFailsWithConnectionError {
+
+            @BeforeEach
+            fun before() {
+                coEvery { apiClient.endpoints.getMarvelCharacters() } throws IOException()
             }
 
             @Test
-            @DisplayName("Then I get a Connetion RemoteError")
+            @DisplayName("Then the remote source gets a connection remote error")
             fun execute1() = runTest(testCoroutineDispatcher) {
-                coEvery { apiClient.endpoints.getMarvelCharacters() } throws IOException()
                 val result = sut.getMarvelCharacters()
-                coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters() }
                 assertEquals(result, Either.Left(ConnectionError))
-                coVerify(exactly = 1) { sut.getMarvelCharacters() }
             }
 
-            // Add test for ApiError
+            @AfterEach
+            fun after() {
+                coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters() }
+                coVerify(exactly = 1) { sut.getMarvelCharacters() }
+            }
         }
+
+        // Add test for ApiError
     }
 }

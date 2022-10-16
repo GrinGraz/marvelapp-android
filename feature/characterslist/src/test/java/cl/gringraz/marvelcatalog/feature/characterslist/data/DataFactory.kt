@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.data.source
+package cl.gringraz.marvelcatalog.feature.characterslist.data
 
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Comics
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Data

@@ -4,7 +4,7 @@ import arrow.core.Either
 import cl.gringraz.corenetwork.ConnectionError
 import cl.gringraz.corenetwork.UnknownError
 import cl.gringraz.marvelcatalog.feature.characterslist.data.MarvelCharactersRepo
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.DataFactory
+import cl.gringraz.marvelcatalog.feature.characterslist.data.DataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
 import io.mockk.coEvery
@@ -32,7 +32,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 class MarvelCharactersRepositoryTest {
 
     lateinit var testCoroutineDispatcher: TestDispatcher
-
     @MockK
     lateinit var dataSource: MarvelCharactersRemoteSource
     lateinit var sut: MarvelCharactersRepository
@@ -43,8 +42,8 @@ class MarvelCharactersRepositoryTest {
         sut = spyk(MarvelCharactersRepo(dataSource))
     }
 
-    @Nested
     @DisplayName("Given the request for marvel characters by the repository")
+    @Nested
     inner class GetMarvelCharactersByRepo {
 
         @Nested
@@ -114,8 +113,6 @@ class MarvelCharactersRepositoryTest {
                 coVerify(exactly = 1) { dataSource.getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
             }
-
-            // Add test for ApiError
         }
     }
 }
