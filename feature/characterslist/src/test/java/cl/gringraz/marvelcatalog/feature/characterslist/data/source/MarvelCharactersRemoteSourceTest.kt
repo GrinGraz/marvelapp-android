@@ -79,7 +79,8 @@ class MarvelCharactersRemoteSourceTest {
             @BeforeEach
             fun before() {
                 coEvery { apiClient.endpoints.getMarvelCharacters() } throws HttpException(
-                    DataFactory.errorResponse)
+                    DataFactory.errorResponse
+                )
             }
 
             @Test

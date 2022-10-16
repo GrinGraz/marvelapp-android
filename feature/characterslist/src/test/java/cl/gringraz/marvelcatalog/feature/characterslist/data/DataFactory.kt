@@ -30,67 +30,69 @@ object DataFactory {
             limit = 1,
             total = 1,
             count = 1,
-            results = listOf(Results(
-                id = 1,
-                name = "name",
-                description = "description",
-                modified = "modified",
-                Thumbnail(
-                    path = "path",
-                    extension = "extension"
-                ),
-                resourceURI = "resourceUri",
-                comics = Comics(
-                    available = 1,
-                    collectionURI = "collectionUri",
-                    items = listOf(
-                        Items(
-                            resourceURI = "resourceUri",
-                            name = "name"
-                        )
+            results = listOf(
+                Results(
+                    id = 1,
+                    name = "name",
+                    description = "description",
+                    modified = "modified",
+                    Thumbnail(
+                        path = "path",
+                        extension = "extension"
                     ),
-                    returned = 1
-                ),
-                series = Series(
-                    available = 1,
-                    collectionURI = "collectionUri",
-                    items = listOf(
-                        Items(
-                            resourceURI = "resourceUri",
-                            name = "name"
-                        )
+                    resourceURI = "resourceUri",
+                    comics = Comics(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
                     ),
-                    returned = 1
-                ),
-                stories = Stories(
-                    available = 1,
-                    collectionURI = "collectionUri",
-                    items = listOf(
-                        Items(
-                            resourceURI = "resourceUri",
-                            name = "name"
-                        )
+                    series = Series(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
                     ),
-                    returned = 1
-                ),
-                events = Events(
-                    available = 1,
-                    collectionURI = "collectionUri",
-                    items = listOf(
-                        Items(
-                            resourceURI = "resourceUri",
-                            name = "name"
-                        )
+                    stories = Stories(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
                     ),
-                    returned = 1
-                ),
-                urls = listOf(
-                    Urls(
-                        type = "type",
-                        url = "url"
+                    events = Events(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
+                    ),
+                    urls = listOf(
+                        Urls(
+                            type = "type",
+                            url = "url"
+                        )
                     )
                 )
-            ))
+            )
         )
     )
 

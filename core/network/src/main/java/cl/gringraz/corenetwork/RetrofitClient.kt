@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitClient<T>(
     private val apiConfig: ApiConfig,
-    private val clazz: Class<T>,
+    private val clazz: Class<T>
 ) : ApiClient<T> {
 
     override val endpoints: T by lazy {

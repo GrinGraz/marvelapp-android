@@ -2,7 +2,6 @@ package cl.gringraz.marvelcatalog.feature.characterslist.domain
 
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
-import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -20,7 +19,7 @@ class GetMarvelCharactersTest {
     fun before() {
         repo = mockk()
         sut = GetMarvelCharacters { repo.getMarvelCharacters() }
-        //coEvery { repo.getMarvelCharacters() } returns listOf()
+        // coEvery { repo.getMarvelCharacters() } returns listOf()
     }
 
     @Test

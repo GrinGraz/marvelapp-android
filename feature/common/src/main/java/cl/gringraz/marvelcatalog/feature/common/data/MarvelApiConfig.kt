@@ -12,13 +12,8 @@ data class MarvelApiConfig(
     val publicKey: String,
     val privateKey: String,
     override val timeout: Long = 15L,
-    override val isProd: Boolean = true,
+    override val isProd: Boolean = true
 ) : ApiConfig {
-
-    override fun getInterceptors(): List<Interceptor> = buildList {
-        add(authInterceptor)
-        if (!isProd) add(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-    }
 
     private val authInterceptor: Interceptor = Interceptor { chain ->
         val originalRequest = chain.request()
@@ -34,6 +29,11 @@ data class MarvelApiConfig(
             .url(interceptedUrl)
             .build()
         chain.proceed(interceptedRequest)
+    }
+    
+    override fun getInterceptors(): List<Interceptor> = buildList {
+        add(authInterceptor)
+        if (!isProd) add(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
     }
 
     private fun md5(input: String): String {

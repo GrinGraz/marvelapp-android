@@ -9,24 +9,24 @@ import java.io.IOException
 fun <T> Response<T>.processRemoteResponse(): Either<RemoteError, Response<T>> {
     return when {
         this.isSuccessful -> Either.Right(this)
-        else              -> throw HttpException(this)
+        else -> throw HttpException(this)
     }
 }
 
 fun Throwable.processRemoteException(): RemoteError {
     return when (this) {
         is HttpException -> response().processHttpException()
-        is IOException   -> ConnectionError
-        else             -> UnknownError
+        is IOException -> ConnectionError
+        else -> UnknownError
     }
 }
 
 private fun Response<*>?.processHttpException(): RemoteError {
     return when {
-        this == null  -> UnknownError
+        this == null -> UnknownError
         this.isAuthException -> ApiError("Authentication Error")
         this.hasError -> errorBody()!!.string().parseApiError()
-        else          -> UnknownError
+        else -> UnknownError
     }
 }
 

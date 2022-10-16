@@ -3,8 +3,8 @@ package cl.gringraz.marvelcatalog.feature.characterslist.data.repository
 import arrow.core.Either
 import cl.gringraz.corenetwork.ConnectionError
 import cl.gringraz.corenetwork.UnknownError
-import cl.gringraz.marvelcatalog.feature.characterslist.data.MarvelCharactersRepo
 import cl.gringraz.marvelcatalog.feature.characterslist.data.DataFactory
+import cl.gringraz.marvelcatalog.feature.characterslist.data.MarvelCharactersRepo
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
 import io.mockk.coEvery
@@ -32,6 +32,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class MarvelCharactersRepositoryTest {
 
     lateinit var testCoroutineDispatcher: TestDispatcher
+
     @MockK
     lateinit var dataSource: MarvelCharactersRemoteSource
     lateinit var sut: MarvelCharactersRepository
