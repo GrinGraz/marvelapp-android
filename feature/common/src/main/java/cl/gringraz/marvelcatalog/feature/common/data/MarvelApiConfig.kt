@@ -30,7 +30,7 @@ data class MarvelApiConfig(
             .build()
         chain.proceed(interceptedRequest)
     }
-    
+
     override fun getInterceptors(): List<Interceptor> = buildList {
         add(authInterceptor)
         if (!isProd) add(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
