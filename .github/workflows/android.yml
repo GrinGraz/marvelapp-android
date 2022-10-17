@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  publicKey: ${{ secrets.publickey }}
+  privateKey: ${{ secrets.privatekey }}
+        
 jobs:
   build:
 
@@ -23,9 +27,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      env: # Or as an environment variable
-        publicKey: ${{ secrets.publickey }}
-        privateKey: ${{ secrets.privatekey }}
       run: ./gradlew build
     - name: Run unit test
       run: ./gradlew testDebugUnitTest
