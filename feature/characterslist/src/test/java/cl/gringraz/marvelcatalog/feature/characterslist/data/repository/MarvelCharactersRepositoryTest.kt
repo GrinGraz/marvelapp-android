@@ -3,7 +3,7 @@ package cl.gringraz.marvelcatalog.feature.characterslist.data.repository
 import arrow.core.Either
 import cl.gringraz.corenetwork.ConnectionError
 import cl.gringraz.corenetwork.UnknownError
-import cl.gringraz.marvelcatalog.feature.characterslist.data.DataFactory
+import cl.gringraz.marvelcatalog.feature.characterslist.FakeDataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.data.MarvelCharactersRepo
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
@@ -40,7 +40,7 @@ class MarvelCharactersRepositoryTest {
     @BeforeEach
     fun setUp() {
         testCoroutineDispatcher = StandardTestDispatcher()
-        sut = spyk(MarvelCharactersRepo(dataSource))
+        sut = spyk(MarvelCharactersRepo(dataSource), recordPrivateCalls = false)
     }
 
     @DisplayName("Given the request for marvel characters by the repository")
@@ -53,14 +53,14 @@ class MarvelCharactersRepositoryTest {
 
             @BeforeEach
             fun before() {
-                coEvery { dataSource.getMarvelCharacters() } returns Either.Right(DataFactory.fakeMarvelCharactersResponseModel)
+                coEvery { dataSource.getMarvelCharacters() } returns Either.Right(FakeDataFactory.fakeMarvelCharactersResponseModel)
             }
 
             @Test
             @DisplayName("Then the repository gets a domain model of marvel characters")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                assertEquals(result, Either.Right(DataFactory.fakeMarvelCharactersModel))
+                assertEquals(result, Either.Right(FakeDataFactory.fakeMarvelCharactersModel))
             }
 
             @AfterEach
@@ -83,7 +83,7 @@ class MarvelCharactersRepositoryTest {
             @DisplayName("Then the repository gets a marvel characters unknown domain error")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                assertEquals(result, Either.Left(DataFactory.fakeUnknownMarvelError))
+                assertEquals(result, Either.Left(FakeDataFactory.fakeUnknownMarvelError))
             }
 
             @AfterEach
@@ -106,7 +106,7 @@ class MarvelCharactersRepositoryTest {
             @DisplayName("Then the repository gets a marvel characters connection domain error")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                assertEquals(result, Either.Left(DataFactory.fakeConnectionMarvelError))
+                assertEquals(result, Either.Left(FakeDataFactory.fakeConnectionMarvelError))
             }
 
             @AfterEach

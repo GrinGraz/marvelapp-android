@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist
+package cl.gringraz.marvelcatalog.feature.characterslist.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

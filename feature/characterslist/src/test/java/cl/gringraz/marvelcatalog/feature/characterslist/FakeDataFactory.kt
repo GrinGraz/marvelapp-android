@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.data
+package cl.gringraz.marvelcatalog.feature.characterslist
 
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Comics
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Data
@@ -16,7 +16,7 @@ import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Thumbnai
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
-object DataFactory {
+object FakeDataFactory {
 
     val fakeMarvelCharactersResponseModel = MarvelCharactersResponseModel(
         code = 1,

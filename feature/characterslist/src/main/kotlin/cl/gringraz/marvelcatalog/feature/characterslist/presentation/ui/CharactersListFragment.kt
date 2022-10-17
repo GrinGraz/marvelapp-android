@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist
+package cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import cl.gringraz.marvelcatalog.feature.characterslist.R
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.CharactersViewModel
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersListUiState
 import kotlinx.coroutines.launch
 
 class CharactersListFragment : Fragment() {

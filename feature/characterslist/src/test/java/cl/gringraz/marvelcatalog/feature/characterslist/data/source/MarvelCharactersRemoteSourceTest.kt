@@ -4,7 +4,7 @@ import arrow.core.Either
 import cl.gringraz.corenetwork.ApiClient
 import cl.gringraz.corenetwork.ConnectionError
 import cl.gringraz.corenetwork.UnknownError
-import cl.gringraz.marvelcatalog.feature.characterslist.data.DataFactory
+import cl.gringraz.marvelcatalog.feature.characterslist.FakeDataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelApi
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
 import io.mockk.coEvery
@@ -55,14 +55,14 @@ class MarvelCharactersRemoteSourceTest {
 
             @BeforeEach
             fun before() {
-                coEvery { apiClient.endpoints.getMarvelCharacters() } returns DataFactory.fakeMarvelCharactersResponse
+                coEvery { apiClient.endpoints.getMarvelCharacters() } returns FakeDataFactory.fakeMarvelCharactersResponse
             }
 
             @Test
             @DisplayName("Then the remote source gets a response model of marvel characters")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                assertEquals(result, Either.Right(DataFactory.fakeMarvelCharactersResponseModel))
+                assertEquals(Either.Right(FakeDataFactory.fakeMarvelCharactersResponseModel), result)
             }
 
             @AfterEach
@@ -79,7 +79,7 @@ class MarvelCharactersRemoteSourceTest {
             @BeforeEach
             fun before() {
                 coEvery { apiClient.endpoints.getMarvelCharacters() } throws HttpException(
-                    DataFactory.errorResponse
+                    FakeDataFactory.errorResponse
                 )
             }
 
@@ -87,7 +87,7 @@ class MarvelCharactersRemoteSourceTest {
             @DisplayName("Then the remote source gets an unknown remote error")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                assertEquals(result, Either.Left(UnknownError))
+                assertEquals(Either.Left(UnknownError), result)
             }
 
             @AfterEach
@@ -110,7 +110,7 @@ class MarvelCharactersRemoteSourceTest {
             @DisplayName("Then the remote source gets a connection remote error")
             fun execute1() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                assertEquals(result, Either.Left(ConnectionError))
+                assertEquals(Either.Left(ConnectionError), result)
             }
 
             @AfterEach

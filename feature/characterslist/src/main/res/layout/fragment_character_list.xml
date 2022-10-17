@@ -5,7 +5,7 @@
     android:id="@+id/characters_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharactersListFragment">
+    tools:context=".presentation.ui.CharactersListFragment">
 
     <TextView
         android:id="@+id/message"

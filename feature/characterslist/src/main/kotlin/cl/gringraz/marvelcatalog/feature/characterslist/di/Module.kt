@@ -1,8 +1,8 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.di
-/*import cl.gringraz.corenetwork.ApiClient
+import cl.gringraz.corenetwork.ApiClient
 import cl.gringraz.corenetwork.RetrofitClient
 import cl.gringraz.marvelcatalog.feature.characterslist.BuildConfig
-import cl.gringraz.marvelcatalog.feature.characterslist.CharactersViewModel
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.CharactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.data.MarvelCharactersRepo
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.MarvelCharactersRemote
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelApi
@@ -32,4 +32,8 @@ private val repo: MarvelCharactersRepository by lazy {
 
 private val getCharactersUseCase: GetMarvelCharacters by lazy {
     GetMarvelCharacters { repo.getMarvelCharacters() }
-}*/
+}
+
+internal fun charactersViewModel(): CharactersViewModel {
+    return CharactersViewModel(getCharactersUseCase)
+}
