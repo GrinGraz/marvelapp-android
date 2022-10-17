@@ -1,11 +1,16 @@
 package cl.gringraz.marvelcatalog.feature.characterslist
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
+import kotlinx.coroutines.launch
 
 class CharactersListFragment : Fragment() {
 
@@ -18,7 +23,23 @@ class CharactersListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
+        viewModel = charactersViewModel()
+        viewModel.getMarvelCharacters()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.result.collect {
+                    when(it) {
+                        is MarvelCharactersListUiState.Error   -> Toast.makeText(this@CharactersListFragment.context,
+                            it.message, Toast.LENGTH_LONG).show()
+                        MarvelCharactersListUiState.Loading    -> Toast.makeText(this@CharactersListFragment.context,
+                            it.toString(), Toast.LENGTH_LONG).show()
+                        is MarvelCharactersListUiState.Success -> Toast.makeText(this@CharactersListFragment.context,
+                            it.characters.toString(), Toast.LENGTH_LONG).show()
+                    }
+
+                }
+            }
+        }
     }
 
     override fun onCreateView(
