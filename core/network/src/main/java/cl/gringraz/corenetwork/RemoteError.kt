@@ -1,34 +1,14 @@
 package cl.gringraz.corenetwork
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-sealed class RemoteError
-data class ConnectionError(val message: String) : RemoteError()
-data class UnauthorizedError(
-    @SerializedName("error")
-    @Expose
-    val exceptionError: RemoteErrorResponse
-) : RemoteError()
-
-data class ApiError(
-    @SerializedName("error") val exceptionError: RemoteErrorResponse
-) : RemoteError()
-
-data class UnknownError(val message: String) : RemoteError()
-data class UnexpectedNullBodyError(val message: String) : RemoteError()
+sealed class RemoteError(open val message: String)
+object ConnectionError : RemoteError(message = "Connection error")
+object UnknownError : RemoteError(message = "Unknown error")
+data class ApiError(override val message: String) : RemoteError(message = message)
 
 data class RemoteErrorResponse(
-    @SerializedName("type")
-    @Expose
-    var type: String? = null,
-    @SerializedName("statusCode")
-    @Expose
-    val statusCode: String? = null,
-    @SerializedName("name")
-    @Expose
-    val name: String? = null,
-    @SerializedName("message")
-    @Expose
-    val message: String? = null
+    @SerializedName("code") val code: String?,
+    @SerializedName("status") val status: String?,
+    @SerializedName("message") val message: String?
 )

@@ -1,10 +1,8 @@
 package cl.gringraz.corenetwork
 
 import okhttp3.ConnectionSpec
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.TlsVersion
-import okhttp3.logging.HttpLoggingInterceptor
 
 object OkHttpBaseConfig {
 
@@ -13,10 +11,6 @@ object OkHttpBaseConfig {
             retryOnConnectionFailure(true)
             connectionSpecs(listOf(createConnectionSpec()))
         }
-    }
-
-    fun createHttpLoggingInterceptor(): Interceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
     private fun createConnectionSpec(): ConnectionSpec {

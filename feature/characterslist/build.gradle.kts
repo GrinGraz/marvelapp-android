@@ -25,6 +25,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "PUBLIC_KEY", "\"${Keys.publicKey}\"")
+            buildConfigField("String", "PRIVATE_KEY", "\"${Keys.privateKey}\"")
+            buildConfigField("String", "BASE_URL", "\"https://gateway.marvel.com/\"")
+        }
+        debug {
+            buildConfigField("String", "PUBLIC_KEY", "\"${Keys.publicKey}\"")
+            buildConfigField("String", "PRIVATE_KEY", "\"${Keys.privateKey}\"")
+            buildConfigField("String", "BASE_URL", "\"https://gateway.marvel.com/\"")
         }
     }
     compileOptions {
@@ -42,10 +50,11 @@ android {
 dependencies {
     implementation(project(":core:network"))
     implementation(project(":feature:common"))
-
+    implementation(Deps.google.gson)
     Deps.androidX.forEach { dep -> implementation(dep) }
     Deps.third.forEach { dep -> implementation(dep) }
     Deps.coroutine.forEach { dep -> implementation(dep) }
+    Deps.square.forEach { dep -> implementation(dep) }
 
     testImplementation(Deps.test.api)
     testImplementation(Deps.test.junit5)

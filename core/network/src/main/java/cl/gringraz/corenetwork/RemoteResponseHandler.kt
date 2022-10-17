@@ -1,49 +1,46 @@
 package cl.gringraz.corenetwork
 
+import arrow.core.Either
 import com.google.gson.Gson
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-class UnexpectedEmptyBodyException(message: String) : Exception(message)
-
-fun Throwable.processRemoteException(): RemoteError = when (this) {
-    is HttpException -> response().processHttpException()
-    is IOException -> ConnectionError(message ?: "Connection terminated")
-    is UnexpectedEmptyBodyException -> UnexpectedNullBodyError(message ?: "Empty Body")
-    else -> UnknownError(message ?: "Unhandled unknown exception")
-}
-
 fun <T> Response<T>.processRemoteResponse(): Either<RemoteError, Response<T>> {
     return when {
-        this.isSuccessful -> Either.Success(this)
+        this.isSuccessful -> Either.Right(this)
         else -> throw HttpException(this)
     }
 }
 
-private fun Response<*>?.processHttpException(): RemoteError {
-    val errorBody: String = this?.errorBody()?.string() ?: ""
-    return when {
-        this == null -> UnknownError("Unknown error")
-        this.hasError(errorBody) && this.isAuthError -> errorBody.parseUnauthorizedError()
-        this.hasError(errorBody) -> errorBody.parseApiError()
-        else -> UnknownError("Unhandled unknown error")
+fun Throwable.processRemoteException(): RemoteError {
+    return when (this) {
+        is HttpException -> response().processHttpException()
+        is IOException -> ConnectionError
+        else -> UnknownError
     }
 }
 
-private fun String.parseUnauthorizedError(): UnauthorizedError =
-    Gson().fromJson(this, UnauthorizedError::class.java)
+private fun Response<*>?.processHttpException(): RemoteError {
+    return when {
+        this == null -> UnknownError
+        this.isAuthException -> ApiError("Authentication Error")
+        this.hasError -> errorBody()!!.string().parseApiError()
+        else -> UnknownError
+    }
+}
 
 private fun String.parseApiError(): RemoteError {
     return try {
-        Gson().fromJson(this, ApiError::class.java)
+        val errorResponse = Gson().fromJson(this, RemoteErrorResponse::class.java)
+        ApiError(message = errorResponse.status!!)
     } catch (exception: Exception) {
-        UnknownError("Unknown error")
+        UnknownError
     }
 }
 
-private val <T> Response<T>.isAuthError: Boolean
-    get() = code() == 401
+private val <T> Response<T>.hasError: Boolean
+    get() = errorBody()?.string()?.isNotBlank() ?: false
 
-private fun <T> Response<T>.hasError(body: String): Boolean =
-    errorBody() != null && body.isNotBlank()
+private val <T> Response<T>.isAuthException: Boolean
+    get() = raw().code == 401

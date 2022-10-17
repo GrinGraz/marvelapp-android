@@ -1,8 +1,10 @@
 package cl.gringraz.corenetwork
 
-data class ApiConfig(
-    val baseUrl: String,
-    val authToken: String,
-    val timeout: Long = 15L,
-    val isProd: Boolean = true
-)
+import okhttp3.Interceptor
+
+interface ApiConfig {
+    val baseUrl: String
+    val timeout: Long
+    val isProd: Boolean
+    fun getInterceptors(): List<Interceptor> = emptyList()
+}

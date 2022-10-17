@@ -13,6 +13,10 @@ tasks.test {
 }
 
 dependencies {
+    implementation(project(":core:network"))
+    implementation(Deps.squareup.okhttp)
+    implementation(Deps.squareup.loggingInterceptor)
+    implementation(Deps.thirdParty.arrowCore)
     testImplementation(kotlin("test"))
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 }
