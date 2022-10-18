@@ -1,7 +1,7 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.domain
 
 import arrow.core.Either
-import cl.gringraz.marvelcatalog.feature.characterslist.data.DataFactory
+import cl.gringraz.marvelcatalog.feature.characterslist.FakeDataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
@@ -51,14 +51,14 @@ class GetMarvelCharactersTest {
 
             @BeforeEach
             fun before() {
-                coEvery { repo.getMarvelCharacters() } returns Either.Right(DataFactory.fakeMarvelCharactersModel)
+                coEvery { repo.getMarvelCharacters() } returns Either.Right(FakeDataFactory.fakeMarvelCharactersModel)
             }
 
             @Test
             @DisplayName("Then the use case gets a domain model of marvel characters")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut()
-                assertEquals(result, Either.Right(DataFactory.fakeMarvelCharactersModel))
+                assertEquals(Either.Right(FakeDataFactory.fakeMarvelCharactersModel), result)
             }
 
             @AfterEach
@@ -74,14 +74,14 @@ class GetMarvelCharactersTest {
 
             @BeforeEach
             fun before() {
-                coEvery { repo.getMarvelCharacters() } returns Either.Left(DataFactory.fakeUnknownMarvelError)
+                coEvery { repo.getMarvelCharacters() } returns Either.Left(FakeDataFactory.fakeUnknownMarvelError)
             }
 
             @Test
             @DisplayName("Then the use case gets an unknown domain error")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut()
-                assertEquals(result, Either.Left(MarvelCharactersError("Unknown error")))
+                assertEquals(Either.Left(MarvelCharactersError("Unknown error")), result)
             }
 
             @AfterEach
@@ -97,14 +97,14 @@ class GetMarvelCharactersTest {
 
             @BeforeEach
             fun before() {
-                coEvery { repo.getMarvelCharacters() } returns Either.Left(DataFactory.fakeConnectionMarvelError)
+                coEvery { repo.getMarvelCharacters() } returns Either.Left(FakeDataFactory.fakeConnectionMarvelError)
             }
 
             @Test
             @DisplayName("Then the use case gets a connection domain error")
             fun execute1() = runTest(testCoroutineDispatcher) {
                 val result = sut()
-                assertEquals(result, Either.Left(MarvelCharactersError("Connection error")))
+                assertEquals(Either.Left(MarvelCharactersError("Connection error")), result)
             }
 
             @AfterEach

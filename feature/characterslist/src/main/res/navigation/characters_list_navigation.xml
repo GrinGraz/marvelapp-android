@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/characters_list_navigation"
+    app:startDestination="@id/characters_list">
+
+    <fragment
+        android:id="@+id/characters_list"
+        android:name="cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.MarvelCharactersListFragment"
+        android:label="detail">
+
+        <deepLink
+            app:uri="android-app://marvel.app/character_list" />
+    </fragment>
+</navigation>

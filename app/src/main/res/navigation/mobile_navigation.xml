@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="cl.gringraz.marvelcatalog.feature.characterslist.CharactersListFragment"
+        android:name="cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.MarvelCharactersListFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_character_list" />
 
@@ -22,4 +22,9 @@
         android:name="cl.gringraz.marvelcatalog.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <include app:graph="@navigation/characters_detail_navigation" />
+
+    <include app:graph="@navigation/characters_list_navigation" />
+
 </navigation>

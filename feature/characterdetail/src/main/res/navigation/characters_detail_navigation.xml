@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/characters_detail_navigation"
+    app:startDestination="@id/characters_detail">
+
+    <fragment
+        android:id="@+id/characters_detail"
+        android:name="cl.gringraz.marvelcatalog.feature.characterdetail.CharacterDetailFragment"
+        android:label="detail">
+
+        <argument
+            android:name="id"
+            android:defaultValue="Argument Default Value"/>
+        <deepLink
+            app:uri="android-app://marvel.app/character_detail/{id}" />
+    </fragment>
+
+
+</navigation>

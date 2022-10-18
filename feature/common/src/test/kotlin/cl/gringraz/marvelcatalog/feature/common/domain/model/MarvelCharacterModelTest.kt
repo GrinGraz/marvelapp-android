@@ -10,17 +10,17 @@ import java.net.URL
 class MarvelCharacterModelTest {
 
     @Nested
-    @DisplayName("When it try to create thumbnail from character model")
+    @DisplayName("given it try to create thumbnail from character model")
     inner class CreateMarvelCharacterThumbnail {
 
         @Nested
-        @DisplayName("If path and extensions are ok")
+        @DisplayName("When path and extensions are ok")
         inner class CreationIsSuccessful {
 
             @Test
             @DisplayName("Then it get a valid thumbnail url")
             fun `create character thumbnail with path and extension ok`() {
-                val imageUrl = URL("http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg")
+                val imageUrl = URL("https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg")
                 val thumbnail = ModelFactory.createThumbnail(ModelFactory.ModelState.Ok)
                 Assertions.assertEquals(imageUrl.toString(), thumbnail.createThumbnailUrl())
             }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/character_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="Marvel character name"
+        android:foreground="@drawable/gradient_overlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_100tb" />
+
+    <TextView
+        android:id="@+id/character_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingEnd="@dimen/text_margin"
+        android:paddingStart="@dimen/text_margin"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/character_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/character_image"
+        app:layout_constraintVertical_bias="0.873"
+        tools:text="Iron Man" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/like"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/character_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/character_name"
+        app:layout_constraintTop_toTopOf="@+id/character_name"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="lottie/like.json"
+        app:lottie_loop="false" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

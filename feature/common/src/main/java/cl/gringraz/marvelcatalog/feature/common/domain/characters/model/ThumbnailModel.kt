@@ -4,5 +4,5 @@ data class ThumbnailModel(
     val path: String,
     val extension: String
 ) {
-    fun createThumbnailUrl(): String = "$path.$extension"
+    fun createThumbnailUrl(): String = "${path.replace("http", "https")}.$extension"
 }
