@@ -37,13 +37,13 @@ class CharactersViewModelTest {
     lateinit var getMarvelCharacters: GetMarvelCharacters
 
     @MockK
-    lateinit var sut: CharactersViewModel
+    lateinit var sut: MarvelCharactersViewModel
 
     @BeforeEach
     fun setUp() {
         testCoroutineDispatcher = StandardTestDispatcher()
         Dispatchers.setMain(testCoroutineDispatcher)
-        sut = spyk(CharactersViewModel(getMarvelCharacters), recordPrivateCalls = false)
+        sut = spyk(MarvelCharactersViewModel(getMarvelCharacters), recordPrivateCalls = false)
     }
 
     @AfterEach
@@ -68,14 +68,14 @@ class CharactersViewModelTest {
             @DisplayName("Then the view model gets a marvel characters loading ui model")
             fun execute() = runTest(testCoroutineDispatcher) {
                 sut.getMarvelCharacters()
-                assertEquals(MarvelCharactersListUiState.Loading, sut.result.value)
+                assertEquals(MarvelCharactersListUiState.Loading, sut.marvelCharactersUiState.value)
             }
 
             @AfterEach
             fun after() {
                 coVerify(exactly = 1) { getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
-                coVerify(atMost = 2) { sut.result }
+                coVerify(atMost = 2) { sut.marvelCharactersUiState }
             }
         }
 
@@ -94,7 +94,7 @@ class CharactersViewModelTest {
                 sut.getMarvelCharacters()
                 delay(1)
                 assertEquals(MarvelCharactersListUiState.Success(FakeDataFactory.fakeMarvelCharactersModel),
-                    sut.result.value
+                    sut.marvelCharactersUiState.value
                 )
             }
 
@@ -102,7 +102,7 @@ class CharactersViewModelTest {
             fun after() {
                 coVerify(exactly = 1) { getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
-                coVerify(atMost = 2) { sut.result }
+                coVerify(atMost = 2) { sut.marvelCharactersUiState }
             }
         }
 
@@ -121,14 +121,14 @@ class CharactersViewModelTest {
                 sut.getMarvelCharacters()
                 delay(1)
                 assertEquals(MarvelCharactersListUiState.Error(FakeDataFactory.fakeUnknownMarvelError.message),
-                    sut.result.value)
+                    sut.marvelCharactersUiState.value)
             }
 
             @AfterEach
             fun after() {
                 coVerify(exactly = 1) { getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
-                coVerify(atMost = 2) { sut.result }
+                coVerify(atMost = 2) { sut.marvelCharactersUiState }
             }
         }
 
@@ -147,14 +147,14 @@ class CharactersViewModelTest {
                 sut.getMarvelCharacters()
                 delay(1)
                 assertEquals(MarvelCharactersListUiState.Error(FakeDataFactory.fakeConnectionMarvelError.message),
-                    sut.result.value)
+                    sut.marvelCharactersUiState.value)
             }
 
             @AfterEach
             fun after() {
                 coVerify(exactly = 1) { getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
-                coVerify(atMost = 2) { sut.result }
+                coVerify(atMost = 2) { sut.marvelCharactersUiState }
             }
         }
     }

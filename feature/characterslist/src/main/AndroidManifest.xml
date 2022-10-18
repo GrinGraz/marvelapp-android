@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--<application
+<!--    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -9,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarvelCatalog">
         <activity
-            android:name=".CharactersListActivity"
+            android:name=".presentation.ui.CharactersListActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MarvelCatalog.NoActionBar">
+            android:theme="@style/Theme.MarvelCatalog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

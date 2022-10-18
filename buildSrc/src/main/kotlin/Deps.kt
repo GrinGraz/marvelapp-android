@@ -49,6 +49,7 @@ object Deps {
         const val shimmer   = "dev.volo.shimmer:shimmer:0.6.0-alpha01" // facebook shimmer build from main branch
         const val timber    = "com.jakewharton.timber:timber:5.0.1"
         const val arrowCore = "io.arrow-kt:arrow-core:1.1.2"
+        const val lottie    = "com.airbnb.android:lottie:5.2.0"
     }
 
     object coroutines {
@@ -94,6 +95,7 @@ object Deps {
         "com.squareup.retrofit2:converter-gson:2.9.0",
         "com.squareup.okhttp3:logging-interceptor:4.10.0",
         "com.squareup.okhttp3:okhttp:4.10.0",
+        "com.squareup.picasso:picasso:2.8",
     )
 
     val third = listOf(
@@ -101,6 +103,7 @@ object Deps {
         "dev.volo.shimmer:shimmer:0.6.0-alpha01", // facebook shimmer build from main branch
         "com.jakewharton.timber:timber:5.0.1",
         "io.arrow-kt:arrow-core:1.1.2",
+        "com.airbnb.android:lottie:5.2.0"
     )
 
     val coroutine = listOf(

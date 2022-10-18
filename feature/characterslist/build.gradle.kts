@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    //id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id(Plugins.junit5.name)
 }
