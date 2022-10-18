@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.MarvelCharacterItemBinding
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
-class CharactersListAdapter(private val itemClickListener: ItemClickListener) :
-    ListAdapter<MarvelCharacterModel, MarvelCharacterViewHolder>(CharactersDiffCallback()),
+class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListener) :
+    ListAdapter<MarvelCharacterModel, MarvelCharacterViewHolder>(MarvelCharactersDiffCallback()),
     Filterable {
 
     val originalList: List<MarvelCharacterModel> by lazy { currentList }

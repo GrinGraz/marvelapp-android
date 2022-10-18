@@ -3,12 +3,12 @@ package cl.gringraz.marvelcatalog.feature.characterslist.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
-import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class CharactersViewModel(
+class MarvelCharactersViewModel(
     private val getMarvelCharactersUseCase: GetMarvelCharacters,
 ) : ViewModel() {
 
@@ -18,6 +18,7 @@ class CharactersViewModel(
 
     fun getMarvelCharacters() {
         viewModelScope.launch {
+            _marvelCharactersUiState.value = MarvelCharactersListUiState.Loading
             getMarvelCharactersUseCase().fold(
                 ifLeft = {
                     _marvelCharactersUiState.value = MarvelCharactersListUiState.Error(it.message)
@@ -28,10 +29,4 @@ class CharactersViewModel(
             )
         }
     }
-}
-
-sealed interface MarvelCharactersListUiState {
-    object Loading : MarvelCharactersListUiState
-    data class Error(val message: String) : MarvelCharactersListUiState
-    data class Success(val characters: List<MarvelCharacterModel>) : MarvelCharactersListUiState
 }

@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
 
-class CharactersDiffCallback : DiffUtil.ItemCallback<MarvelCharacterModel>() {
+class MarvelCharactersDiffCallback : DiffUtil.ItemCallback<MarvelCharacterModel>() {
     override fun areItemsTheSame(
         oldItem: MarvelCharacterModel,
         newItem: MarvelCharacterModel,

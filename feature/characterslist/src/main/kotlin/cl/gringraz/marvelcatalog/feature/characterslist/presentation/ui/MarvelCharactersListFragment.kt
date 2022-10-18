@@ -1,7 +1,6 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui
 
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,27 +13,23 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.loader.content.Loader
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import cl.gringraz.marvelcatalog.feature.characterslist.R
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentCharacterListBinding
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.CharactersViewModel
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersListUiState
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.adapter.CharactersListAdapter
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.safeLifecycle
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.adapter.MarvelCharactersListAdapter
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
-class CharactersListFragment : Fragment() {
+class MarvelCharactersListFragment : Fragment() {
 
-    private val viewModel: CharactersViewModel = charactersViewModel()
-    private val charactersAdapter = CharactersListAdapter(::onItemClick)
+    private val viewModel: MarvelCharactersViewModel = charactersViewModel()
+    private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick)
     private lateinit var layoutManager: LinearLayoutManager
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
@@ -46,25 +41,6 @@ class CharactersListFragment : Fragment() {
         return binding.root
     }
 
-    private fun addPagination() {
-
-        fun isLastItemVisible() =
-            layoutManager.findLastCompletelyVisibleItemPosition() == charactersAdapter.itemCount - 3
-
-        binding.charactersRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                if (isLastItemVisible()) loadItems()
-            }
-        })
-    }
-
-    private fun loadItems() {
-        if (viewModel.marvelCharactersUiState.value is MarvelCharactersListUiState.Loading) return
-        viewModel.getMarvelCharacters()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupFragmentMenu()
@@ -73,7 +49,7 @@ class CharactersListFragment : Fragment() {
         viewModel.getMarvelCharacters()
     }
 
-    private fun setupFragmentMenu(){
+    private fun setupFragmentMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -82,6 +58,9 @@ class CharactersListFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.refresh -> viewModel.getMarvelCharacters()
+                }
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
@@ -95,7 +74,6 @@ class CharactersListFragment : Fragment() {
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                //charactersAdapter.filter.filter(query)
                 return false
             }
 
@@ -109,7 +87,7 @@ class CharactersListFragment : Fragment() {
     private fun setupRecyclerView() {
         layoutManager = LinearLayoutManager(requireContext())
         with(binding.charactersRecycler) {
-            layoutManager = this@CharactersListFragment.layoutManager
+            layoutManager = this@MarvelCharactersListFragment.layoutManager
             adapter = charactersAdapter
             setHasFixedSize(true)
         }
@@ -121,14 +99,23 @@ class CharactersListFragment : Fragment() {
 
     private fun renderCharactersUiState(state: MarvelCharactersListUiState) {
         when (state) {
-            MarvelCharactersListUiState.Loading    -> binding.progressBar.visibility = View.VISIBLE
+            MarvelCharactersListUiState.Loading    -> renderLoading()
             is MarvelCharactersListUiState.Error   -> renderError(state.message)
             is MarvelCharactersListUiState.Success -> renderCharacters(state.characters)
         }
     }
 
+    private fun renderLoading() {
+        with(binding) {
+            charactersRecycler.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.VISIBLE
+            binding.errorMessage.visibility = View.INVISIBLE
+        }
+    }
+
     private fun renderError(message: String) {
         with(binding) {
+            charactersRecycler.visibility = View.INVISIBLE
             progressBar.visibility = View.INVISIBLE
             errorMessage.visibility = View.VISIBLE
             errorMessage.text = message
@@ -136,12 +123,12 @@ class CharactersListFragment : Fragment() {
     }
 
     private fun renderCharacters(characters: List<MarvelCharacterModel>) {
-        charactersAdapter.submitList(characters)
         with(binding) {
             charactersRecycler.visibility = View.VISIBLE
             progressBar.visibility = View.INVISIBLE
             errorMessage.visibility = View.INVISIBLE
         }
+        charactersAdapter.submitList(characters)
     }
 
     private fun onItemClick(item: MarvelCharacterModel, position: Int) {
@@ -154,13 +141,5 @@ class CharactersListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-}
-
-private fun LifecycleOwner.safeLifecycle(block: suspend CoroutineScope.() -> Unit) {
-    lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            block()
-        }
     }
 }
