@@ -93,7 +93,8 @@ class CharactersViewModelTest {
             fun execute() = runTest(testCoroutineDispatcher) {
                 sut.getMarvelCharacters()
                 delay(1)
-                assertEquals(MarvelCharactersListUiState.Success(FakeDataFactory.fakeMarvelCharactersModel),
+                assertEquals(
+                    MarvelCharactersListUiState.Success(FakeDataFactory.fakeMarvelCharactersModel),
                     sut.marvelCharactersUiState.value
                 )
             }
@@ -120,8 +121,10 @@ class CharactersViewModelTest {
             fun execute() = runTest(testCoroutineDispatcher) {
                 sut.getMarvelCharacters()
                 delay(1)
-                assertEquals(MarvelCharactersListUiState.Error(FakeDataFactory.fakeUnknownMarvelError.message),
-                    sut.marvelCharactersUiState.value)
+                assertEquals(
+                    MarvelCharactersListUiState.Error(FakeDataFactory.fakeUnknownMarvelError.message),
+                    sut.marvelCharactersUiState.value
+                )
             }
 
             @AfterEach
@@ -146,8 +149,10 @@ class CharactersViewModelTest {
             fun execute() = runTest(testCoroutineDispatcher) {
                 sut.getMarvelCharacters()
                 delay(1)
-                assertEquals(MarvelCharactersListUiState.Error(FakeDataFactory.fakeConnectionMarvelError.message),
-                    sut.marvelCharactersUiState.value)
+                assertEquals(
+                    MarvelCharactersListUiState.Error(FakeDataFactory.fakeConnectionMarvelError.message),
+                    sut.marvelCharactersUiState.value
+                )
             }
 
             @AfterEach

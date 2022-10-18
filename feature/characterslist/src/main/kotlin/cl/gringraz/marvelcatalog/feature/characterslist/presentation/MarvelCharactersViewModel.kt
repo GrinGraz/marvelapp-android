@@ -3,7 +3,6 @@ package cl.gringraz.marvelcatalog.feature.characterslist.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="red_marvel">#e23636</color>
+    <color name="red_marvel_official">#ED1D24</color>
     <color name="grey_marvel">#504a4a</color>
     <color name="blue_marvel">#518cca</color>
     <color name="orange_marvel">#f78f3f</color>

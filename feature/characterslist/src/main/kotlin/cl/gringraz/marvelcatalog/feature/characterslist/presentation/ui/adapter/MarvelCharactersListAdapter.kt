@@ -15,7 +15,7 @@ class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListen
     val originalList: List<MarvelCharacterModel> by lazy { currentList }
 
     fun interface ItemClickListener {
-        fun onItemClick(item: MarvelCharacterModel, position: Int)
+        fun onItemClick(item: MarvelCharacterModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarvelCharacterViewHolder {
@@ -25,8 +25,7 @@ class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListen
             with(binding.root) {
                 setOnClickListener {
                     itemClickListener.onItemClick(
-                        item = currentList[holder.absoluteAdapterPosition],
-                        position = holder.absoluteAdapterPosition
+                        item = currentList[holder.absoluteAdapterPosition]
                     )
                 }
             }

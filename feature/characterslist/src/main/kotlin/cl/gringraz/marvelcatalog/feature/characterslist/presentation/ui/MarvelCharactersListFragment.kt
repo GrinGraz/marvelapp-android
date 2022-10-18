@@ -13,15 +13,14 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.loader.content.Loader
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.gringraz.marvelcatalog.feature.characterslist.R
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentCharacterListBinding
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersListUiState
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.safeLifecycle
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.adapter.MarvelCharactersListAdapter
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
@@ -131,7 +130,7 @@ class MarvelCharactersListFragment : Fragment() {
         charactersAdapter.submitList(characters)
     }
 
-    private fun onItemClick(item: MarvelCharacterModel, position: Int) {
+    private fun onItemClick(item: MarvelCharacterModel) {
         val request = NavDeepLinkRequest.Builder
             .fromUri("android-app://marvel.app/character_detail/${item.id}".toUri())
             .build()

@@ -1,4 +1,5 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.di
+
 import cl.gringraz.corenetwork.ApiClient
 import cl.gringraz.corenetwork.RetrofitClient
 import cl.gringraz.marvelcatalog.feature.characterslist.BuildConfig
