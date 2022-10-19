@@ -6,6 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.ListAdapter
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.MarvelCharacterItemBinding
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.throttledClickListener
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
 class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListener) :
@@ -23,7 +24,7 @@ class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListen
             MarvelCharacterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MarvelCharacterViewHolder(binding).also { holder ->
             with(binding.root) {
-                setOnClickListener {
+                throttledClickListener {
                     itemClickListener.onItemClick(
                         item = currentList[holder.absoluteAdapterPosition]
                     )
@@ -57,7 +58,15 @@ class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListen
                 charSequence: CharSequence,
                 filterResults: FilterResults,
             ) {
-                filteredList = filterResults.values as MutableList<MarvelCharacterModel>
+                val castedResults = try {
+                    filterResults.values as MutableList<*>
+                } catch (e: Exception) {
+                    originalList
+                }
+
+                val resolvedList = castedResults.filterIsInstance<MarvelCharacterModel>()
+                filteredList = resolvedList
+
                 submitList(filteredList)
             }
         }

@@ -1,5 +1,6 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.core.net.toUri
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -131,8 +131,18 @@ class MarvelCharactersListFragment : Fragment() {
     }
 
     private fun onItemClick(item: MarvelCharacterModel) {
+        val uri = Uri.Builder()
+            .scheme("android")
+            .authority("marvel.app")
+            .appendPath("character_detail")
+            .appendPath(item.id.toString())
+            .appendPath(item.name)
+            .appendPath(item.getDescriptionOrDefault())
+            .appendPath(item.thumbnail.createThumbnailUrl())
+            .build()
+
         val request = NavDeepLinkRequest.Builder
-            .fromUri("android-app://marvel.app/character_detail/${item.id}".toUri())
+            .fromUri(uri)
             .build()
         findNavController().navigate(request)
     }

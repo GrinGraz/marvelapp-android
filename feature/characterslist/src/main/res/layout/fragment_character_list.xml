@@ -40,6 +40,8 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         tools:visibility="visible"
+        android:textSize="24sp"
+        android:textColor="@color/grey_marvel"
         tools:text="Connection error"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
