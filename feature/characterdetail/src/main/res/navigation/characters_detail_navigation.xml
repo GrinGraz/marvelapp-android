@@ -4,17 +4,24 @@
     android:id="@+id/characters_detail_navigation"
     app:startDestination="@id/characters_detail">
 
-    <fragment
+    <dialog
         android:id="@+id/characters_detail"
-        android:name="cl.gringraz.marvelcatalog.feature.characterdetail.CharacterDetailFragment"
+        android:name="cl.gringraz.marvelcatalog.feature.characterdetail.presentation.MarvelCharacterDetailFragment"
         android:label="detail">
 
         <argument
             android:name="id"
-            android:defaultValue="Argument Default Value"/>
+            android:defaultValue="0"/>
+        <argument
+            android:name="name"
+            android:defaultValue="empty"/>
+        <argument
+            android:name="description"
+            android:defaultValue="empty"/>
+        <argument
+            android:name="url"
+            android:defaultValue="empty"/>
         <deepLink
-            app:uri="android-app://marvel.app/character_detail/{id}" />
-    </fragment>
-
-
+            app:uri="android://marvel.app/character_detail/{id}/{name}/{description}/{url}" />
+    </dialog>
 </navigation>
