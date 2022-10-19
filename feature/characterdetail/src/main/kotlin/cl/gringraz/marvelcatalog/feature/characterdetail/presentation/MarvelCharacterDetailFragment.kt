@@ -1,10 +1,11 @@
-package cl.gringraz.marvelcatalog.feature.characterdetail
+package cl.gringraz.marvelcatalog.feature.characterdetail.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import cl.gringraz.marvelcatalog.feature.characterdetail.R
 import cl.gringraz.marvelcatalog.feature.characterdetail.databinding.FragmentCharacterDetailBinding
 import com.squareup.picasso.Picasso
 

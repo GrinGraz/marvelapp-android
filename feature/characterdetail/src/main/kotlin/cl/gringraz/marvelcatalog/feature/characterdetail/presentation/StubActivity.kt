@@ -1,12 +1,12 @@
-package cl.gringraz.marvelcatalog.feature.characterdetail
+package cl.gringraz.marvelcatalog.feature.characterdetail.presentation
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import cl.gringraz.marvelcatalog.feature.characterdetail.databinding.ActivityStubBinding
+import androidx.fragment.app.FragmentActivity
+import cl.gringraz.marvelcatalog.feature.characterdetail.R
 
-class StubActivity : AppCompatActivity() {
+class StubActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(ActivityStubBinding.inflate(layoutInflater).root)
+        setContentView(R.layout.activity_stub)
     }
 }
