@@ -7,6 +7,7 @@ import cl.gringraz.corenetwork.UnknownError
 import cl.gringraz.marvelcatalog.feature.characterslist.FakeDataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelApi
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
@@ -62,13 +63,49 @@ class MarvelCharactersRemoteSourceTest {
             @DisplayName("Then the remote source gets a response model of marvel characters")
             fun execute() = runTest(testCoroutineDispatcher) {
                 val result = sut.getMarvelCharacters()
-                assertEquals(Either.Right(FakeDataFactory.fakeMarvelCharactersResponseModel), result)
+                assertEquals(
+                    Either.Right(FakeDataFactory.fakeMarvelCharactersResponseModel),
+                    result
+                )
             }
 
             @AfterEach
             fun after() {
                 coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters() }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
+            }
+        }
+
+        @Nested
+        @DisplayName("When the request with params to remote is successful")
+        inner class RequestWithParamsIsSuccessful {
+
+            private lateinit var requestQueryModel: CharactersRequestQueryModel
+            private lateinit var queryMap: Map<String, String>
+
+            @BeforeEach
+            fun before() {
+                requestQueryModel = FakeDataFactory.fakeCharactersRequestQueryModel
+                queryMap = FakeDataFactory.fakeQueryMapFrom(requestQueryModel)
+                coEvery { apiClient.endpoints.getMarvelCharacters(queryMap) } returns FakeDataFactory.fakeQueriedMarvelCharactersResponse(
+                    requestQueryModel.nameStartsWith!!
+                )
+            }
+
+            @Test
+            @DisplayName("Then the remote source gets a queried response model of marvel characters")
+            fun execute() = runTest(testCoroutineDispatcher) {
+                val result = sut.getMarvelCharacters(requestQueryModel)
+                assertEquals(
+                    Either.Right(FakeDataFactory.fakeQueriedResponseModel("second")),
+                    result
+                )
+            }
+
+            @AfterEach
+            fun after() {
+                coVerify(exactly = 1) { apiClient.endpoints.getMarvelCharacters(queryMap) }
+                coVerify(exactly = 1) { sut.getMarvelCharacters(requestQueryModel) }
             }
         }
 

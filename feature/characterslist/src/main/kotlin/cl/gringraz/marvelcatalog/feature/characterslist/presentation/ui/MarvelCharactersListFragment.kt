@@ -21,14 +21,16 @@ import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentChar
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersListUiState
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.debounceQueryTextListener
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.safeLifecycle
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.adapter.MarvelCharactersListAdapter
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
 class MarvelCharactersListFragment : Fragment() {
 
     private val viewModel: MarvelCharactersViewModel = charactersViewModel()
-    private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick)
+    private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick, ::onNoResultSearch)
     private lateinit var layoutManager: LinearLayoutManager
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
@@ -67,20 +69,18 @@ class MarvelCharactersListFragment : Fragment() {
 
     private fun setSearchView(menu: Menu) {
         val searchView = menu.findItem(R.id.action_search).actionView as SearchView
+
         searchView.setOnCloseListener {
             charactersAdapter.filter.filter("")
             return@setOnCloseListener false
         }
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+        searchView.debounceQueryTextListener { newText ->
+            val isDifferentQuery = viewModel.compareAndSetPreviousQuery(query = newText)
+            if (isDifferentQuery) {
                 charactersAdapter.filter.filter(newText)
-                return false
             }
-        })
+        }
     }
 
     private fun setupRecyclerView() {
@@ -145,6 +145,14 @@ class MarvelCharactersListFragment : Fragment() {
             .fromUri(uri)
             .build()
         findNavController().navigate(request)
+    }
+
+    private fun onNoResultSearch(query: String) {
+        val request = CharactersRequestQueryModel(
+            nameStartsWith = query,
+            limit = 100
+        )
+        viewModel.getMarvelCharacters(request)
     }
 
     override fun onDestroyView() {

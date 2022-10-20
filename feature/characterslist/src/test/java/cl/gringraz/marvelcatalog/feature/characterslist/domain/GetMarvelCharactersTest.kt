@@ -57,14 +57,14 @@ class GetMarvelCharactersTest {
             @Test
             @DisplayName("Then the use case gets a domain model of marvel characters")
             fun execute() = runTest(testCoroutineDispatcher) {
-                val result = sut()
+                val result = sut(null)
                 assertEquals(Either.Right(FakeDataFactory.fakeMarvelCharactersModel), result)
             }
 
             @AfterEach
             fun after() {
                 coVerify(exactly = 1) { repo.getMarvelCharacters() }
-                coVerify(exactly = 1) { sut() }
+                coVerify(exactly = 1) { sut(null) }
             }
         }
 
@@ -80,14 +80,14 @@ class GetMarvelCharactersTest {
             @Test
             @DisplayName("Then the use case gets an unknown domain error")
             fun execute() = runTest(testCoroutineDispatcher) {
-                val result = sut()
+                val result = sut(null)
                 assertEquals(Either.Left(MarvelCharactersError("Unknown error")), result)
             }
 
             @AfterEach
             fun after() {
                 coVerify(exactly = 1) { repo.getMarvelCharacters() }
-                coVerify(exactly = 1) { sut() }
+                coVerify(exactly = 1) { sut(null) }
             }
         }
 
@@ -103,14 +103,14 @@ class GetMarvelCharactersTest {
             @Test
             @DisplayName("Then the use case gets a connection domain error")
             fun execute1() = runTest(testCoroutineDispatcher) {
-                val result = sut()
+                val result = sut(null)
                 assertEquals(Either.Left(MarvelCharactersError("Connection error")), result)
             }
 
             @AfterEach
             fun after() {
                 coVerify(exactly = 1) { repo.getMarvelCharacters() }
-                coVerify(exactly = 1) { sut() }
+                coVerify(exactly = 1) { sut(null) }
             }
         }
     }

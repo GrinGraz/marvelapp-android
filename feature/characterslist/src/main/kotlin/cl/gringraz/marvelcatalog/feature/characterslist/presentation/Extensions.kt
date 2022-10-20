@@ -1,6 +1,8 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.presentation
 
 import android.view.View
+import android.widget.SearchView
+import android.widget.SearchView.OnQueryTextListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -19,8 +21,8 @@ fun LifecycleOwner.safeLifecycle(block: suspend CoroutineScope.() -> Unit) {
     }
 }
 
-var job: Job? = null
-fun View.throttledClickListener(onClick: () -> Unit) {
+inline fun View.throttledClickListener(crossinline onClick: () -> Unit) {
+    var job: Job? = null
     setOnClickListener {
         if (job?.isCompleted != false) {
             job = CoroutineScope(Dispatchers.Main).launch {
@@ -29,4 +31,22 @@ fun View.throttledClickListener(onClick: () -> Unit) {
             }
         }
     }
+}
+
+inline fun SearchView.debounceQueryTextListener(
+    crossinline onQueryTextChange: (String?) -> Unit
+) {
+    var job: Job? = null
+    setOnQueryTextListener(object : OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean = false
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            job?.cancel()
+            job = CoroutineScope(Dispatchers.Main).launch {
+                delay(500)
+                onQueryTextChange(newText)
+            }
+            return false
+        }
+    })
 }

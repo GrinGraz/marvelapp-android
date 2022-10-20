@@ -3,12 +3,14 @@ package cl.gringraz.marvelcatalog.feature.characterslist.presentation
 import arrow.core.Either
 import cl.gringraz.marvelcatalog.feature.characterslist.FakeDataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.spyk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -51,7 +53,7 @@ class CharactersViewModelTest {
         clearAllMocks()
     }
 
-    @DisplayName("Given the request for marvel characters by the vieqw model")
+    @DisplayName("Given the request for marvel characters by the view model")
     @Nested
     inner class GetMarvelCharactersByViewModel {
 
@@ -61,7 +63,7 @@ class CharactersViewModelTest {
 
             @BeforeEach
             fun before() {
-                coEvery { getMarvelCharacters() } returns Either.Right(FakeDataFactory.fakeMarvelCharactersModel)
+                coEvery { getMarvelCharacters(null) } returns Either.Right(FakeDataFactory.fakeMarvelCharactersModel)
             }
 
             @Test
@@ -73,7 +75,7 @@ class CharactersViewModelTest {
 
             @AfterEach
             fun after() {
-                coVerify(exactly = 1) { getMarvelCharacters() }
+                coVerify(exactly = 1) { getMarvelCharacters(null) }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
                 coVerify(atMost = 2) { sut.marvelCharactersUiState }
             }
@@ -85,7 +87,7 @@ class CharactersViewModelTest {
 
             @BeforeEach
             fun before() {
-                coEvery { getMarvelCharacters() } returns Either.Right(FakeDataFactory.fakeMarvelCharactersModel)
+                coEvery { getMarvelCharacters(null) } returns Either.Right(FakeDataFactory.fakeMarvelCharactersModel)
             }
 
             @Test
@@ -101,8 +103,42 @@ class CharactersViewModelTest {
 
             @AfterEach
             fun after() {
-                coVerify(exactly = 1) { getMarvelCharacters() }
+                coVerify(exactly = 1) { getMarvelCharacters(null) }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
+                coVerify(atMost = 2) { sut.marvelCharactersUiState }
+            }
+        }
+
+        @Nested
+        @DisplayName("When the request with params and the mapping from use case to ui model is successful")
+        inner class RequestWithParamsAndMappingIsSuccessful {
+
+            private lateinit var requestQueryModel: CharactersRequestQueryModel
+
+            @BeforeEach
+            fun before() {
+                requestQueryModel =
+                    FakeDataFactory.fakeCharactersRequestQueryModel
+                coEvery { getMarvelCharacters(requestQueryModel) } returns Either.Right(
+                    FakeDataFactory.fakeQueriedMarvelCharactersModel(requestQueryModel.nameStartsWith!!)
+                )
+            }
+
+            @Test
+            @DisplayName("Then the view model gets a ui model of marvel characters")
+            fun execute() = runTest(testCoroutineDispatcher) {
+                sut.getMarvelCharacters(requestQueryModel)
+                delay(1)
+                assertEquals(
+                    MarvelCharactersListUiState.Success(FakeDataFactory.fakeQueriedMarvelCharactersModel("second")),
+                    sut.marvelCharactersUiState.value
+                )
+            }
+
+            @AfterEach
+            fun after() {
+                coVerify(exactly = 1) { getMarvelCharacters(requestQueryModel) }
+                coVerify(exactly = 1) { sut.getMarvelCharacters(requestQueryModel) }
                 coVerify(atMost = 2) { sut.marvelCharactersUiState }
             }
         }
@@ -113,7 +149,7 @@ class CharactersViewModelTest {
 
             @BeforeEach
             fun before() {
-                coEvery { getMarvelCharacters() } returns Either.Left(FakeDataFactory.fakeUnknownMarvelError)
+                coEvery { getMarvelCharacters(null) } returns Either.Left(FakeDataFactory.fakeUnknownMarvelError)
             }
 
             @Test
@@ -129,7 +165,7 @@ class CharactersViewModelTest {
 
             @AfterEach
             fun after() {
-                coVerify(exactly = 1) { getMarvelCharacters() }
+                coVerify(exactly = 1) { getMarvelCharacters(null) }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
                 coVerify(atMost = 2) { sut.marvelCharactersUiState }
             }
@@ -141,7 +177,7 @@ class CharactersViewModelTest {
 
             @BeforeEach
             fun before() {
-                coEvery { getMarvelCharacters() } returns Either.Left(FakeDataFactory.fakeConnectionMarvelError)
+                coEvery { getMarvelCharacters(null) } returns Either.Left(FakeDataFactory.fakeConnectionMarvelError)
             }
 
             @Test
@@ -157,9 +193,26 @@ class CharactersViewModelTest {
 
             @AfterEach
             fun after() {
-                coVerify(exactly = 1) { getMarvelCharacters() }
+                coVerify(exactly = 1) { getMarvelCharacters(null) }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
                 coVerify(atMost = 2) { sut.marvelCharactersUiState }
+            }
+        }
+
+        @Nested
+        @DisplayName("When compare and set the previous query")
+        inner class CompareAndSetPreviousQuery {
+
+            @Test
+            @DisplayName("Then the query is set or not depends on its value")
+            fun execute() = runTest(testCoroutineDispatcher) {
+                assert(sut.compareAndSetPreviousQuery("first"))
+                assert(!sut.compareAndSetPreviousQuery("first"))
+            }
+
+            @AfterEach
+            fun after() {
+                verify(exactly = 2) { sut.compareAndSetPreviousQuery("first") }
             }
         }
     }
