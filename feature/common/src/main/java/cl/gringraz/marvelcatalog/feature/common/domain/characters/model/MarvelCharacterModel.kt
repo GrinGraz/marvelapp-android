@@ -5,4 +5,12 @@ data class MarvelCharacterModel(
     val name: String,
     val description: String?,
     val thumbnail: ThumbnailModel
-)
+) {
+    fun getDescriptionOrDefault(): String {
+        return if (description.isNullOrEmpty()) {
+            "We don't have the character's description right now."
+        } else {
+            description
+        }
+    }
+}

@@ -8,6 +8,7 @@ object Deps {
         const val viewModel          = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
         const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:2.5.2"
         const val navigationUi       = "androidx.navigation:navigation-ui-ktx:2.5.2"
+        const val coreKtx            = "androidx.core:core-ktx:1.9.0"
     }
 
     object androidxTest {
@@ -66,6 +67,7 @@ object Deps {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1",
         "androidx.navigation:navigation-fragment-ktx:2.5.2",
         "androidx.navigation:navigation-ui-ktx:2.5.2",
+        "androidx.core:core-ktx:1.9.0",
     )
 
     val androidXTest = listOf(

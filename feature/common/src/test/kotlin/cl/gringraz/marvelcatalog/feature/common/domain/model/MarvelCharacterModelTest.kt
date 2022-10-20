@@ -10,7 +10,7 @@ import java.net.URL
 class MarvelCharacterModelTest {
 
     @Nested
-    @DisplayName("given it try to create thumbnail from character model")
+    @DisplayName("Given it try to create thumbnail from character model")
     inner class CreateMarvelCharacterThumbnail {
 
         @Nested
