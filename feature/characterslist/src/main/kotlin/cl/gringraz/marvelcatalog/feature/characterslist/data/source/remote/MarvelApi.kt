@@ -8,7 +8,7 @@ import retrofit2.http.QueryMap
 interface MarvelApi {
     @GET("$apiVersion/public/characters")
     suspend fun getMarvelCharacters(
-        @QueryMap queryStrings: Map<String, String>
+        @QueryMap queryStrings: Map<String, String> = emptyMap()
     ): Response<MarvelCharactersResponseModel>
 
     private companion object {

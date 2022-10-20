@@ -10,6 +10,7 @@ import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Stories
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Thumbnail
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Urls
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.ThumbnailModel
@@ -91,6 +92,67 @@ object FakeDataFactory {
                             url = "url"
                         )
                     )
+                ),
+                Results(
+                    id = 2,
+                    name = "second name",
+                    description = "description",
+                    modified = "modified",
+                    Thumbnail(
+                        path = "path",
+                        extension = "extension"
+                    ),
+                    resourceURI = "resourceUri",
+                    comics = Comics(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
+                    ),
+                    series = Series(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
+                    ),
+                    stories = Stories(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
+                    ),
+                    events = Events(
+                        available = 1,
+                        collectionURI = "collectionUri",
+                        items = listOf(
+                            Items(
+                                resourceURI = "resourceUri",
+                                name = "name"
+                            )
+                        ),
+                        returned = 1
+                    ),
+                    urls = listOf(
+                        Urls(
+                            type = "type",
+                            url = "url"
+                        )
+                    )
                 )
             )
         )
@@ -100,6 +162,15 @@ object FakeDataFactory {
         MarvelCharacterModel(
             id = 1,
             name = "name",
+            description = "description",
+            thumbnail = ThumbnailModel(
+                path = "path",
+                extension = "extension"
+            )
+        ),
+        MarvelCharacterModel(
+            id = 2,
+            name = "second name",
             description = "description",
             thumbnail = ThumbnailModel(
                 path = "path",
@@ -119,6 +190,36 @@ object FakeDataFactory {
     val fakeMarvelCharactersResponse: Response<MarvelCharactersResponseModel> =
         Response.success(fakeMarvelCharactersResponseModel)
 
+    val fakeCharactersRequestQueryModel: CharactersRequestQueryModel = CharactersRequestQueryModel(
+        nameStartsWith = "second",
+        limit = 100
+    )
+
     val errorResponse: Response<MarvelCharactersResponseModel> =
         Response.error(404, "not found".toResponseBody(null))
+
+    fun fakeQueriedMarvelCharactersModel(query: String) = fakeMarvelCharactersModel.filter {
+        it.name == query
+    }
+
+    fun fakeQueriedResponseModel(query: String): MarvelCharactersResponseModel {
+        val data = fakeMarvelCharactersResponseModel.data?.copy(
+            results = fakeMarvelCharactersResponseModel.data?.results?.filter { it?.name?.contains(query)!! }
+        )
+        return fakeMarvelCharactersResponseModel.copy(data = data)
+    }
+
+    fun fakeQueriedMarvelCharactersResponse(query: String): Response<MarvelCharactersResponseModel> {
+        return Response.success(fakeQueriedResponseModel(query))
+    }
+
+    fun fakeQueryMapFrom(requestQueryModel: CharactersRequestQueryModel): Map<String, String> {
+        return buildMap {
+            with(requestQueryModel) {
+                nameStartsWith?.let { put("nameStartsWith", it) }
+                limit?.let { put("limit", it.toString()) }
+                offset?.let { put("offset", it.toString()) }
+            }
+        }
+    }
 }
