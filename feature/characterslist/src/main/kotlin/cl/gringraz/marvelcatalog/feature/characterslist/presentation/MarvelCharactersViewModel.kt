@@ -3,6 +3,7 @@ package cl.gringraz.marvelcatalog.feature.characterslist.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,11 +15,12 @@ class MarvelCharactersViewModel(
     private val _marvelCharactersUiState =
         MutableStateFlow<MarvelCharactersListUiState>(MarvelCharactersListUiState.Loading)
     val marvelCharactersUiState: StateFlow<MarvelCharactersListUiState> = _marvelCharactersUiState
+    private var previousQuery: String? = ""
 
-    fun getMarvelCharacters() {
+    fun getMarvelCharacters(requestModel: CharactersRequestQueryModel? = null) {
         viewModelScope.launch {
             _marvelCharactersUiState.value = MarvelCharactersListUiState.Loading
-            getMarvelCharactersUseCase().fold(
+            getMarvelCharactersUseCase(requestModel).fold(
                 ifLeft = {
                     _marvelCharactersUiState.value = MarvelCharactersListUiState.Error(it.message)
                 },
@@ -27,5 +29,13 @@ class MarvelCharactersViewModel(
                 }
             )
         }
+    }
+
+    fun compareAndSetPreviousQuery(query: String?): Boolean {
+        if (query != previousQuery) {
+            previousQuery = query
+            return true
+        }
+        return false
     }
 }

@@ -9,15 +9,13 @@ import cl.gringraz.marvelcatalog.feature.characterslist.databinding.MarvelCharac
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.throttledClickListener
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
-class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListener) :
-    ListAdapter<MarvelCharacterModel, MarvelCharacterViewHolder>(MarvelCharactersDiffCallback()),
+class MarvelCharactersListAdapter(
+    private val itemClickListener: ItemClickListener,
+    private val onNoResultSearchListener: NoResultSearchListener
+) : ListAdapter<MarvelCharacterModel, MarvelCharacterViewHolder>(MarvelCharactersDiffCallback()),
     Filterable {
 
     val originalList: List<MarvelCharacterModel> by lazy { currentList }
-
-    fun interface ItemClickListener {
-        fun onItemClick(item: MarvelCharacterModel)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarvelCharacterViewHolder {
         val binding =
@@ -41,15 +39,23 @@ class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListen
         var filteredList = originalList
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults {
-                val charString = charSequence.toString()
-                if (charString.isEmpty()) {
+                val query = charSequence.toString()
+                val filterResults = FilterResults()
+
+                if (query.isEmpty()) {
                     submitList(originalList)
                 } else {
-                    filteredList = originalList.filter {
-                        it.name.contains(other = charString, ignoreCase = true)
+                    filteredList = originalList.filter { character ->
+                        character.name.contains(other = query, ignoreCase = true)
                     }
                 }
-                val filterResults = FilterResults()
+
+                if (filteredList.isEmpty()) {
+                    onNoResultSearchListener.onNoResultSearch(query = query)
+                    filterResults.values = filteredList
+                    return filterResults
+                }
+
                 filterResults.values = filteredList
                 return filterResults
             }
@@ -70,5 +76,13 @@ class MarvelCharactersListAdapter(private val itemClickListener: ItemClickListen
                 submitList(filteredList)
             }
         }
+    }
+
+    fun interface ItemClickListener {
+        fun onItemClick(item: MarvelCharacterModel)
+    }
+
+    fun interface NoResultSearchListener {
+        fun onNoResultSearch(query: String)
     }
 }
