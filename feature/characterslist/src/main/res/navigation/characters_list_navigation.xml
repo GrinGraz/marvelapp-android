@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/characters_list"
-        android:name="cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.MarvelCharactersListFragment"
+        android:name="cl.gringraz.marvelcatalog.feature.characterslist.ui.MarvelCharactersListFragment"
         android:label="detail">
 
         <deepLink

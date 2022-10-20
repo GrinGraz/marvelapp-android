@@ -7,24 +7,16 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.MarvelCharactersListFragment"
+        android:name="cl.gringraz.marvelcatalog.feature.characterslist.ui.MarvelCharactersListFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_character_list" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="cl.gringraz.marvelcatalog.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="cl.gringraz.marvelcatalog.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_favorites"
+        android:name="cl.gringraz.marvelcatalog.ui.favorites.FavoritesFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites" />
 
     <include app:graph="@navigation/characters_detail_navigation" />
-
-    <include app:graph="@navigation/characters_list_navigation" />
 
 </navigation>

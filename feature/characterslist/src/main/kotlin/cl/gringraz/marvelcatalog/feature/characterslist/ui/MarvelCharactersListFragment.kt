@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui
+package cl.gringraz.marvelcatalog.feature.characterslist.ui
 
 import android.net.Uri
 import android.os.Bundle
@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import cl.gringraz.marvelcatalog.feature.characterslist.R
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentCharacterListBinding
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
@@ -23,7 +24,7 @@ import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelChara
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.debounceQueryTextListener
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.safeLifecycle
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.adapter.MarvelCharactersListAdapter
+import cl.gringraz.marvelcatalog.feature.characterslist.ui.adapter.MarvelCharactersListAdapter
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
@@ -70,11 +71,6 @@ class MarvelCharactersListFragment : Fragment() {
     private fun setSearchView(menu: Menu) {
         val searchView = menu.findItem(R.id.action_search).actionView as SearchView
 
-        searchView.setOnCloseListener {
-            charactersAdapter.filter.filter("")
-            return@setOnCloseListener false
-        }
-
         searchView.debounceQueryTextListener { newText ->
             val isDifferentQuery = viewModel.compareAndSetPreviousQuery(query = newText)
             if (isDifferentQuery) {
@@ -106,9 +102,8 @@ class MarvelCharactersListFragment : Fragment() {
 
     private fun renderLoading() {
         with(binding) {
-            charactersRecycler.visibility = View.INVISIBLE
             binding.progressBar.visibility = View.VISIBLE
-            binding.errorMessage.visibility = View.INVISIBLE
+            binding.statusMessage.visibility = View.INVISIBLE
         }
     }
 
@@ -116,16 +111,15 @@ class MarvelCharactersListFragment : Fragment() {
         with(binding) {
             charactersRecycler.visibility = View.INVISIBLE
             progressBar.visibility = View.INVISIBLE
-            errorMessage.visibility = View.VISIBLE
-            errorMessage.text = message
+            statusMessage.visibility = View.VISIBLE
+            statusMessage.text = message
         }
     }
 
     private fun renderCharacters(characters: List<MarvelCharacterModel>) {
         with(binding) {
-            charactersRecycler.visibility = View.VISIBLE
             progressBar.visibility = View.INVISIBLE
-            errorMessage.visibility = View.INVISIBLE
+            statusMessage.visibility = View.INVISIBLE
         }
         charactersAdapter.submitList(characters)
     }
@@ -148,6 +142,7 @@ class MarvelCharactersListFragment : Fragment() {
     }
 
     private fun onNoResultSearch(query: String) {
+        if (viewModel.marvelCharactersUiState.value is MarvelCharactersListUiState.Loading) return
         val request = CharactersRequestQueryModel(
             nameStartsWith = query,
             limit = 100

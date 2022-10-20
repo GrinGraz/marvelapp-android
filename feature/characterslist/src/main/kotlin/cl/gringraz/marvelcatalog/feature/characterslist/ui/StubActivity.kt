@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui
+package cl.gringraz.marvelcatalog.feature.characterslist.ui
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity

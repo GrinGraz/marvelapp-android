@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.adapter
+package cl.gringraz.marvelcatalog.feature.characterslist.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
