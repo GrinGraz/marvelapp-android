@@ -5,7 +5,7 @@ import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCh
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError
 
 interface MarvelCharacterRepository {
-    suspend fun getMarvelCharacterbyId(
+    suspend fun getMarvelCharacterById(
         id: String
     ): Either<MarvelCharactersError, List<MarvelCharacterModel>>
 }

@@ -1,16 +1,16 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.di
+package cl.gringraz.marvelcatalog.feature.characterdetail.di
 
 import cl.gringraz.corenetwork.ApiClient
 import cl.gringraz.corenetwork.RetrofitClient
-import cl.gringraz.marvelcatalog.feature.characterslist.BuildConfig
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
-import cl.gringraz.marvelcatalog.feature.characterslist.data.MarvelCharactersRepo
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.MarvelCharactersRemote
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelApi
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
-import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
+import cl.gringraz.marvelcatalog.feature.characterdetail.BuildConfig
+import cl.gringraz.marvelcatalog.feature.characterdetail.data.MarvelCharacterRepo
+import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.MarvelCharacterRemote
+import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.MarvelCharacterApi
+import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.MarvelCharacterRemoteSource
+import cl.gringraz.marvelcatalog.feature.characterdetail.domain.GetCharacterById
+import cl.gringraz.marvelcatalog.feature.characterdetail.domain.MarvelCharacterRepository
+import cl.gringraz.marvelcatalog.feature.characterdetail.presentation.MarvelCharacterDetailViewModel
 import cl.gringraz.marvelcatalog.feature.common.data.MarvelApiConfig
-import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
 
 private val apiConfig = MarvelApiConfig(
     baseUrl = BuildConfig.BASE_URL,
@@ -19,22 +19,22 @@ private val apiConfig = MarvelApiConfig(
     isProd = BuildConfig.BUILD_TYPE == "release"
 )
 
-private val marvelApi: ApiClient<MarvelApi> by lazy {
-    RetrofitClient(apiConfig, MarvelApi::class.java)
+private val marvelApi: ApiClient<MarvelCharacterApi> by lazy {
+    RetrofitClient(apiConfig, MarvelCharacterApi::class.java)
 }
 
-private val remoteSource: MarvelCharactersRemoteSource by lazy {
-    MarvelCharactersRemote(marvelApi)
+private val remoteSource: MarvelCharacterRemoteSource by lazy {
+    MarvelCharacterRemote(marvelApi)
 }
 
-private val repo: MarvelCharactersRepository by lazy {
-    MarvelCharactersRepo(remoteSource)
+private val repo: MarvelCharacterRepository by lazy {
+    MarvelCharacterRepo(remoteSource)
 }
 
-private val getCharactersUseCase: GetMarvelCharacters by lazy {
-    GetMarvelCharacters(repo::getMarvelCharacters)
+private val getCharacterByIdUseCase: GetCharacterById by lazy {
+    GetCharacterById(repo::getMarvelCharacterById)
 }
 
-internal fun charactersViewModel(): MarvelCharactersViewModel {
-    return MarvelCharactersViewModel(getCharactersUseCase)
+internal fun characterDetailViewModel(): MarvelCharacterDetailViewModel {
+    return MarvelCharacterDetailViewModel(getCharacterByIdUseCase)
 }
