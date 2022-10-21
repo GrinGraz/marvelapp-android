@@ -18,11 +18,11 @@ data class MarvelApiConfig(
     private val authInterceptor: Interceptor = Interceptor { chain ->
         val originalRequest = chain.request()
         val originalUrl = originalRequest.url
-        val timeStamp = Date().toString()
-        val hash = md5(timeStamp + privateKey + publicKey)
+        val timeStamp = Date()
+        val hash = md5(timeStamp.time.toString() + privateKey + publicKey)
         val interceptedUrl = originalUrl.newBuilder()
             .addQueryParameter("apikey", publicKey)
-            .addQueryParameter("ts", timeStamp)
+            .addQueryParameter("ts", timeStamp.time.toString())
             .addQueryParameter("hash", hash)
             .build()
         val interceptedRequest = originalRequest.newBuilder()
