@@ -3,35 +3,23 @@ package cl.gringraz.marvelcatalog.feature.characterslist.ui
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import cl.gringraz.marvelcatalog.feature.characterslist.R
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentCharacterListBinding
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersListUiState
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.debounceQueryTextListener
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.safeLifecycle
 import cl.gringraz.marvelcatalog.feature.characterslist.ui.adapter.MarvelCharactersListAdapter
-import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
 class MarvelCharactersListFragment : Fragment() {
 
     private val viewModel: MarvelCharactersViewModel = charactersViewModel()
-    private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick, ::onNoResultSearch)
+    private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick)
     private lateinit var layoutManager: LinearLayoutManager
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
@@ -45,38 +33,9 @@ class MarvelCharactersListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupFragmentMenu()
         setupRecyclerView()
         setupUiStateCollection()
         viewModel.getMarvelCharacters()
-    }
-
-    private fun setupFragmentMenu() {
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.character_list_menu, menu)
-                setSearchView(menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    R.id.refresh -> viewModel.getMarvelCharacters()
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
-
-    private fun setSearchView(menu: Menu) {
-        val searchView = menu.findItem(R.id.action_search).actionView as SearchView
-
-        searchView.debounceQueryTextListener { newText ->
-            val isDifferentQuery = viewModel.compareAndSetPreviousQuery(query = newText)
-            if (isDifferentQuery) {
-                charactersAdapter.filter.filter(newText)
-            }
-        }
     }
 
     private fun setupRecyclerView() {
@@ -94,8 +53,8 @@ class MarvelCharactersListFragment : Fragment() {
 
     private fun renderCharactersUiState(state: MarvelCharactersListUiState) {
         when (state) {
-            MarvelCharactersListUiState.Loading    -> renderLoading()
-            is MarvelCharactersListUiState.Error   -> renderError(state.message)
+            MarvelCharactersListUiState.Loading -> renderLoading()
+            is MarvelCharactersListUiState.Error -> renderError(state.message)
             is MarvelCharactersListUiState.Success -> renderCharacters(state.characters)
         }
     }
@@ -139,15 +98,6 @@ class MarvelCharactersListFragment : Fragment() {
             .fromUri(uri)
             .build()
         findNavController().navigate(request)
-    }
-
-    private fun onNoResultSearch(query: String) {
-        if (viewModel.marvelCharactersUiState.value is MarvelCharactersListUiState.Loading) return
-        val request = CharactersRequestQueryModel(
-            nameStartsWith = query,
-            limit = 100
-        )
-        viewModel.getMarvelCharacters(request)
     }
 
     override fun onDestroyView() {

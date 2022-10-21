@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.common.domain.characters.repository
+package cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.repository
 
 import arrow.core.Either
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel

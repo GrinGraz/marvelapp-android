@@ -1,15 +1,15 @@
 package cl.gringraz.marvelcatalog.feature.characterslist
 
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Comics
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Data
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Events
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Items
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.MarvelCharactersResponseModel
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Results
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Series
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Stories
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Thumbnail
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.Urls
+import cl.gringraz.marvelcatalog.feature.common.data.Comics
+import cl.gringraz.marvelcatalog.feature.common.data.Data
+import cl.gringraz.marvelcatalog.feature.common.data.Events
+import cl.gringraz.marvelcatalog.feature.common.data.Items
+import cl.gringraz.marvelcatalog.feature.common.data.MarvelCharactersResponseModel
+import cl.gringraz.marvelcatalog.feature.common.data.Results
+import cl.gringraz.marvelcatalog.feature.common.data.Series
+import cl.gringraz.marvelcatalog.feature.common.data.Stories
+import cl.gringraz.marvelcatalog.feature.common.data.Thumbnail
+import cl.gringraz.marvelcatalog.feature.common.data.Urls
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError

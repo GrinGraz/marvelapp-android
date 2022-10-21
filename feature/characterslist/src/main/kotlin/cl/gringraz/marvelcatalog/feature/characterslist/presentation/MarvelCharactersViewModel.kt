@@ -7,7 +7,6 @@ import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Characte
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicInteger
 
 class MarvelCharactersViewModel(
     private val getMarvelCharactersUseCase: GetMarvelCharacters,
@@ -16,8 +15,6 @@ class MarvelCharactersViewModel(
     private val _marvelCharactersUiState =
         MutableStateFlow<MarvelCharactersListUiState>(MarvelCharactersListUiState.Loading)
     val marvelCharactersUiState: StateFlow<MarvelCharactersListUiState> = _marvelCharactersUiState
-    private var previousQuery: String? = ""
-    private var atomicOffset: AtomicInteger = AtomicInteger(20)
 
     fun getMarvelCharacters(requestModel: CharactersRequestQueryModel? = null) {
         viewModelScope.launch {
@@ -31,17 +28,5 @@ class MarvelCharactersViewModel(
                 }
             )
         }
-    }
-
-    fun compareAndSetPreviousQuery(query: String?): Boolean {
-        if (query != previousQuery) {
-            previousQuery = query
-            return true
-        }
-        return false
-    }
-
-    fun getOffsetAndIncrement(): Int {
-        return atomicOffset.getAndAccumulate(20) { initial, new -> initial + new }
     }
 }

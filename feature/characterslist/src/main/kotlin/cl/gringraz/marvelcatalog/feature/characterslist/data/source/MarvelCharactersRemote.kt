@@ -6,7 +6,7 @@ import cl.gringraz.corenetwork.RemoteError
 import cl.gringraz.corenetwork.apiCall
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelApi
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
-import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.model.MarvelCharactersResponseModel
+import cl.gringraz.marvelcatalog.feature.common.data.MarvelCharactersResponseModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

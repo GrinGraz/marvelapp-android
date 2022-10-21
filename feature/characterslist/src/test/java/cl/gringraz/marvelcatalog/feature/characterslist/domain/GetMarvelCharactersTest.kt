@@ -3,8 +3,8 @@ package cl.gringraz.marvelcatalog.feature.characterslist.domain
 import arrow.core.Either
 import cl.gringraz.marvelcatalog.feature.characterslist.FakeDataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
+import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.repository.MarvelCharactersRepository
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError
-import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK

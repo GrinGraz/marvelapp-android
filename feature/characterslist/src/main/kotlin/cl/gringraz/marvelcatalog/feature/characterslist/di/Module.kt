@@ -10,7 +10,7 @@ import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.Marve
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
 import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.GetMarvelCharacters
 import cl.gringraz.marvelcatalog.feature.common.data.MarvelApiConfig
-import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
+import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.repository.MarvelCharactersRepository
 
 private val apiConfig = MarvelApiConfig(
     baseUrl = BuildConfig.BASE_URL,
