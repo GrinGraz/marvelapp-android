@@ -5,7 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface MarvelApi {
+interface MarvelCharacterApi {
     @GET("$apiVersion/public/characters/{id}")
     suspend fun getMarvelCharacterById(
         @Path("id") id: String

@@ -4,7 +4,7 @@ import arrow.core.Either
 import cl.gringraz.corenetwork.RemoteError
 import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.model.MarvelCharactersResponseModel
 
-interface MarvelCharactersRemoteSource {
+interface MarvelCharacterRemoteSource {
     suspend fun getMarvelCharacterById(
         id: String
     ): Either<RemoteError, MarvelCharactersResponseModel?>
