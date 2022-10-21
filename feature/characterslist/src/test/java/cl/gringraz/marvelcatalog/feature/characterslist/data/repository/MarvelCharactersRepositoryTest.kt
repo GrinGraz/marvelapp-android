@@ -6,7 +6,7 @@ import cl.gringraz.corenetwork.UnknownError
 import cl.gringraz.marvelcatalog.feature.characterslist.FakeDataFactory
 import cl.gringraz.marvelcatalog.feature.characterslist.data.MarvelCharactersRepo
 import cl.gringraz.marvelcatalog.feature.characterslist.data.source.remote.MarvelCharactersRemoteSource
-import cl.gringraz.marvelcatalog.feature.common.domain.characters.repository.MarvelCharactersRepository
+import cl.gringraz.marvelcatalog.feature.characterslist.domain.usecase.repository.MarvelCharactersRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK

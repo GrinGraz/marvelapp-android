@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.presentation.ui.adapter
+package cl.gringraz.marvelcatalog.feature.characterslist.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.MarvelCharacterItemBinding

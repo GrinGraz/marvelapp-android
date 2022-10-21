@@ -10,7 +10,6 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.spyk
-import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -130,7 +129,11 @@ class CharactersViewModelTest {
                 sut.getMarvelCharacters(requestQueryModel)
                 delay(1)
                 assertEquals(
-                    MarvelCharactersListUiState.Success(FakeDataFactory.fakeQueriedMarvelCharactersModel("second")),
+                    MarvelCharactersListUiState.Success(
+                        FakeDataFactory.fakeQueriedMarvelCharactersModel(
+                            "second"
+                        )
+                    ),
                     sut.marvelCharactersUiState.value
                 )
             }
@@ -196,23 +199,6 @@ class CharactersViewModelTest {
                 coVerify(exactly = 1) { getMarvelCharacters(null) }
                 coVerify(exactly = 1) { sut.getMarvelCharacters() }
                 coVerify(atMost = 2) { sut.marvelCharactersUiState }
-            }
-        }
-
-        @Nested
-        @DisplayName("When compare and set the previous query")
-        inner class CompareAndSetPreviousQuery {
-
-            @Test
-            @DisplayName("Then the query is set or not depends on its value")
-            fun execute() = runTest(testCoroutineDispatcher) {
-                assert(sut.compareAndSetPreviousQuery("first"))
-                assert(!sut.compareAndSetPreviousQuery("first"))
-            }
-
-            @AfterEach
-            fun after() {
-                verify(exactly = 2) { sut.compareAndSetPreviousQuery("first") }
             }
         }
     }
