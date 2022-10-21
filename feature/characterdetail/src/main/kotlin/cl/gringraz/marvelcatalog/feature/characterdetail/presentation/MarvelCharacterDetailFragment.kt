@@ -93,6 +93,7 @@ class MarvelCharacterDetailFragment : DialogFragment() {
         with(binding) {
             progressBar.visibility = View.INVISIBLE
             statusMessage.visibility = View.INVISIBLE
+            characterDescription.text = characters[0].name
         }
     }
 
