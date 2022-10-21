@@ -1,4 +1,4 @@
-package cl.gringraz.marvelcatalog.feature.characterslist.ui
+package cl.gringraz.marvelcatalog.feature.characterdetail.presentation
 
 import android.view.View
 import android.widget.SearchView
