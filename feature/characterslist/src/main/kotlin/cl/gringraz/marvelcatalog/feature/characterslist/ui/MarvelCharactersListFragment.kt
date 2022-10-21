@@ -1,25 +1,24 @@
 package cl.gringraz.marvelcatalog.feature.characterslist.ui
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentCharacterListBinding
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersListUiState
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
+import cl.gringraz.marvelcatalog.feature.characterslist.presentation.Navigation.navigateToCharacterDetail
 import cl.gringraz.marvelcatalog.feature.characterslist.ui.adapter.MarvelCharactersListAdapter
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 
 class MarvelCharactersListFragment : Fragment() {
 
     private val viewModel: MarvelCharactersViewModel = charactersViewModel()
-    private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick)
+    private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick, ::onLoadMoreItems)
     private lateinit var layoutManager: LinearLayoutManager
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
@@ -35,7 +34,7 @@ class MarvelCharactersListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupUiStateCollection()
-        viewModel.getMarvelCharacters()
+        loadItems()
     }
 
     private fun setupRecyclerView() {
@@ -45,10 +44,18 @@ class MarvelCharactersListFragment : Fragment() {
             adapter = charactersAdapter
             setHasFixedSize(true)
         }
+        charactersAdapter.addPagination()
     }
 
     private fun setupUiStateCollection() = safeLifecycle {
         viewModel.marvelCharactersUiState.collect(::renderCharactersUiState)
+    }
+
+    private fun loadItems() {
+        val requestQueryModel = CharactersRequestQueryModel(
+            offset = viewModel.getAndAccumulateOffset()
+        )
+        viewModel.getMarvelCharacters(requestQueryModel)
     }
 
     private fun renderCharactersUiState(state: MarvelCharactersListUiState) {
@@ -61,8 +68,8 @@ class MarvelCharactersListFragment : Fragment() {
 
     private fun renderLoading() {
         with(binding) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.statusMessage.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+            statusMessage.visibility = View.INVISIBLE
         }
     }
 
@@ -80,24 +87,15 @@ class MarvelCharactersListFragment : Fragment() {
             progressBar.visibility = View.INVISIBLE
             statusMessage.visibility = View.INVISIBLE
         }
-        charactersAdapter.submitList(characters)
+        charactersAdapter.submitList(characters.toMutableList())
     }
 
     private fun onItemClick(item: MarvelCharacterModel) {
-        val uri = Uri.Builder()
-            .scheme("android")
-            .authority("marvel.app")
-            .appendPath("character_detail")
-            .appendPath(item.id.toString())
-            .appendPath(item.name)
-            .appendPath(item.getDescriptionOrDefault())
-            .appendPath(item.thumbnail.createThumbnailUrl())
-            .build()
+        navigateToCharacterDetail(item)
+    }
 
-        val request = NavDeepLinkRequest.Builder
-            .fromUri(uri)
-            .build()
-        findNavController().navigate(request)
+    private fun onLoadMoreItems() {
+        loadItems()
     }
 
     override fun onDestroyView() {
