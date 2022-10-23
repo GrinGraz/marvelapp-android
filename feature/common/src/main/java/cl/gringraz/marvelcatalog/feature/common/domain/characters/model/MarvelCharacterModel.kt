@@ -4,7 +4,11 @@ data class MarvelCharacterModel(
     val id: Long,
     val name: String,
     private val description: String?,
-    val thumbnail: ThumbnailModel
+    val thumbnail: ThumbnailModel,
+    val comics: List<Comic>,
+    val series: List<Serie>,
+    val stories: List<Story>,
+    val events: List<Event>
 ) {
     fun getDescriptionOrDefault(): String {
         return if (description.isNullOrEmpty()) {

@@ -2,8 +2,8 @@ package cl.gringraz.marvelcatalog.feature.characterdetail.data
 
 import arrow.core.Either
 import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.MarvelCharacterRemoteSource
-import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.model.toDomainError
 import cl.gringraz.marvelcatalog.feature.characterdetail.domain.MarvelCharacterRepository
+import cl.gringraz.marvelcatalog.feature.common.data.toDomainError
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError
 

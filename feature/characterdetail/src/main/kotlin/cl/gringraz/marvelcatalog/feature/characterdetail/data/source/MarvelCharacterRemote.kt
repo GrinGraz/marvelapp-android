@@ -6,7 +6,7 @@ import cl.gringraz.corenetwork.RemoteError
 import cl.gringraz.corenetwork.apiCall
 import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.MarvelCharacterApi
 import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.MarvelCharacterRemoteSource
-import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.model.MarvelCharactersResponseModel
+import cl.gringraz.marvelcatalog.feature.common.data.MarvelCharactersResponseModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -18,7 +18,7 @@ class MarvelCharacterRemote(
     override suspend fun getMarvelCharacterById(
         id: String
     ): Either<RemoteError, MarvelCharactersResponseModel?> {
-        return apiCall(dispatcher) { marvelApi.endpoints.getMarvelCharacterById(id = id) }
+        return apiCall(dispatcher) { marvelApi.endpoints.getMarvelCharacterById(id) }
             .map { marvelCharactersResponse ->
                 marvelCharactersResponse.body()
             }

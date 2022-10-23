@@ -2,7 +2,7 @@ package cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote
 
 import arrow.core.Either
 import cl.gringraz.corenetwork.RemoteError
-import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.model.MarvelCharactersResponseModel
+import cl.gringraz.marvelcatalog.feature.common.data.MarvelCharactersResponseModel
 
 interface MarvelCharacterRemoteSource {
     suspend fun getMarvelCharacterById(

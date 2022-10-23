@@ -6,7 +6,7 @@
 
     <dialog
         android:id="@+id/characters_detail"
-        android:name="cl.gringraz.marvelcatalog.feature.characterdetail.presentation.MarvelCharacterDetailFragment"
+        android:name="cl.gringraz.marvelcatalog.feature.characterdetail.ui.MarvelCharacterDetailFragment"
         android:label="detail">
 
         <argument

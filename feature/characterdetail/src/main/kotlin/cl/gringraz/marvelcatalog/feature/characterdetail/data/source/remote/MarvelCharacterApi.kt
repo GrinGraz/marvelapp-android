@@ -1,6 +1,6 @@
 package cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote
 
-import cl.gringraz.marvelcatalog.feature.characterdetail.data.source.remote.model.MarvelCharactersResponseModel
+import cl.gringraz.marvelcatalog.feature.common.data.MarvelCharactersResponseModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
