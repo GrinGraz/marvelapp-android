@@ -202,4 +202,11 @@ class CharactersViewModelTest {
             }
         }
     }
+
+    @Test
+    @DisplayName("Given a initial value when get and accumulate on atomic offset then returns new value")
+    fun `Test get and accumulate off`() {
+        sut.getAndAccumulateOffset()
+        assertEquals(20, sut.getAndAccumulateOffset())
+    }
 }

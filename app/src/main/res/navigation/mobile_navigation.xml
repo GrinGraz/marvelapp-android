@@ -17,6 +17,12 @@
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites" />
 
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="cl.gringraz.marvelcatalog.ui.favorites.FavoritesFragment"
+        android:label="search"
+        tools:layout="@layout/fragment_favorites" />
+
     <include app:graph="@navigation/characters_detail_navigation" />
 
 </navigation>

@@ -21,6 +21,8 @@ class RetrofitClient<T>(
 
     private fun okHttpBuilder(): OkHttpClient.Builder = OkHttpBaseConfig.baseOkhttpBuilder.apply {
         readTimeout(apiConfig.timeout, TimeUnit.SECONDS)
-        apiConfig.getInterceptors().forEach { interceptor -> addInterceptor(interceptor) }
+        interceptors().ifEmpty {
+            apiConfig.getInterceptors().forEach { interceptor -> addInterceptor(interceptor) }
+        }
     }
 }

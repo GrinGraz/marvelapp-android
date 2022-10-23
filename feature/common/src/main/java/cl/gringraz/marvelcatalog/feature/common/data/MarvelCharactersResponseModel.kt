@@ -1,10 +1,19 @@
 package cl.gringraz.marvelcatalog.feature.common.data
 
 import cl.gringraz.corenetwork.RemoteError
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Comic
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Event
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Serie
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Story
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.ThumbnailModel
 import com.google.gson.annotations.SerializedName
+
+typealias Comics = Category
+typealias Series = Category
+typealias Stories = Category
+typealias Events = Category
 
 data class MarvelCharactersResponseModel(
     @SerializedName("code") val code: Int?,
@@ -24,7 +33,31 @@ data class MarvelCharactersResponseModel(
                 thumbnail = ThumbnailModel(
                     path = character?.thumbnail?.path ?: "",
                     extension = character?.thumbnail?.extension ?: ""
-                )
+                ),
+                comics = character?.comics?.items?.map {
+                    Comic(
+                        resourceURI = it.resourceURI ?: "",
+                        name = it.name ?: ""
+                    )
+                }.orEmpty(),
+                series = character?.series?.items?.map {
+                    Serie(
+                        resourceURI = it.resourceURI ?: "",
+                        name = it.name ?: ""
+                    )
+                }.orEmpty(),
+                stories = character?.stories?.items?.map {
+                    Story(
+                        resourceURI = it.resourceURI ?: "",
+                        name = it.name ?: ""
+                    )
+                }.orEmpty(),
+                events = character?.events?.items?.map {
+                    Event(
+                        resourceURI = it.resourceURI ?: "",
+                        name = it.name ?: ""
+                    )
+                }.orEmpty()
             )
         }
     }
@@ -57,28 +90,7 @@ data class Thumbnail(
     @SerializedName("extension") val extension: String?
 )
 
-data class Comics(
-    @SerializedName("available") val available: Int?,
-    @SerializedName("collectionURI") val collectionURI: String?,
-    @SerializedName("items") val items: List<Items>?,
-    @SerializedName("returned") val returned: Int?
-)
-
-data class Series(
-    @SerializedName("available") val available: Int?,
-    @SerializedName("collectionURI") val collectionURI: String?,
-    @SerializedName("items") val items: List<Items>?,
-    @SerializedName("returned") val returned: Int?
-)
-
-data class Stories(
-    @SerializedName("available") val available: Int?,
-    @SerializedName("collectionURI") val collectionURI: String?,
-    @SerializedName("items") val items: List<Items>?,
-    @SerializedName("returned") val returned: Int?
-)
-
-data class Events(
+data class Category(
     @SerializedName("available") val available: Int?,
     @SerializedName("collectionURI") val collectionURI: String?,
     @SerializedName("items") val items: List<Items>?,
