@@ -13,20 +13,20 @@ import kotlinx.coroutines.launch
 class MarvelCharacterDetailViewModel(private val getCharacterByIdUseCase: GetCharacterById) :
     ViewModel() {
 
-    private val _marvelCharactersUiState =
+    private val _marvelCharacterUiState =
         MutableStateFlow<MarvelCharacterDetailUiState>(MarvelCharacterDetailUiState.Loading)
-    val marvelCharactersUiState: StateFlow<MarvelCharacterDetailUiState> = _marvelCharactersUiState
+    val marvelCharacterUiState: StateFlow<MarvelCharacterDetailUiState> = _marvelCharacterUiState
 
     fun getCharacterById(id: String) {
-        _marvelCharactersUiState.value = MarvelCharacterDetailUiState.Loading
+        _marvelCharacterUiState.value = MarvelCharacterDetailUiState.Loading
         viewModelScope.launch {
             getCharacterByIdUseCase(id).fold(
                 ifLeft = {
-                    _marvelCharactersUiState.value = MarvelCharacterDetailUiState.Error(it.message)
+                    _marvelCharacterUiState.value = MarvelCharacterDetailUiState.Error(it.message)
                 },
                 ifRight = {
                     val detailsList = createDetailsListOf(character = it.first())
-                    _marvelCharactersUiState.value =
+                    _marvelCharacterUiState.value =
                         MarvelCharacterDetailUiState.Success(detailsList)
                 }
             )

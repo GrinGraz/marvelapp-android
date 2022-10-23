@@ -1,5 +1,6 @@
-package cl.gringraz.marvelcatalog.feature.characterslist
+package cl.gringraz.feature.marvelcatalog.characterdetail.data
 
+import cl.gringraz.marvelcatalog.feature.characterdetail.domain.CharacterDetailsModel
 import cl.gringraz.marvelcatalog.feature.common.data.Comics
 import cl.gringraz.marvelcatalog.feature.common.data.Data
 import cl.gringraz.marvelcatalog.feature.common.data.Events
@@ -11,16 +12,20 @@ import cl.gringraz.marvelcatalog.feature.common.data.Stories
 import cl.gringraz.marvelcatalog.feature.common.data.Thumbnail
 import cl.gringraz.marvelcatalog.feature.common.data.Urls
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Comic
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Event
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.ItemModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharactersError
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Serie
+import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Story
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.ThumbnailModel
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
 object FakeDataFactory {
 
-    val fakeMarvelCharactersResponseModel = MarvelCharactersResponseModel(
+    private val fakeMarvelCharactersResponseModel = MarvelCharactersResponseModel(
         code = 1,
         status = "status",
         copyright = "copyright",
@@ -168,10 +173,10 @@ object FakeDataFactory {
                 path = "path",
                 extension = "extension"
             ),
-            comics = listOf(ItemModel("resourceUri", "name")),
-            series = listOf(ItemModel("resourceUri", "name")),
-            stories = listOf(ItemModel("resourceUri", "name")),
-            events = listOf(ItemModel("resourceUri", "name"))
+            comics = listOf(Comic("resourceUri", "name")),
+            series = listOf(Serie("resourceUri", "name")),
+            stories = listOf(Story("resourceUri", "name")),
+            events = listOf(Event("resourceUri", "name"))
         ),
         MarvelCharacterModel(
             id = 2,
@@ -181,11 +186,18 @@ object FakeDataFactory {
                 path = "path",
                 extension = "extension"
             ),
-            comics = listOf(ItemModel("resourceUri", "name")),
-            series = listOf(ItemModel("resourceUri", "name")),
-            stories = listOf(ItemModel("resourceUri", "name")),
-            events = listOf(ItemModel("resourceUri", "name"))
+            comics = listOf(Comic("resourceUri", "name")),
+            series = listOf(Serie("resourceUri", "name")),
+            stories = listOf(Story("resourceUri", "name")),
+            events = listOf(Event("resourceUri", "name"))
         )
+    )
+
+    val fakeCharacterDetailsModel = listOf(
+        CharacterDetailsModel("Comics", listOf(ItemModel("resourceUri", "name"))),
+        CharacterDetailsModel("Stories", listOf(ItemModel("resourceUri", "name"))),
+        CharacterDetailsModel("Series", listOf(ItemModel("resourceUri", "name"))),
+        CharacterDetailsModel("Events", listOf(ItemModel("resourceUri", "name")))
     )
 
     val fakeConnectionMarvelError = MarvelCharactersError(
@@ -196,7 +208,7 @@ object FakeDataFactory {
         message = "Unknown error"
     )
 
-    val fakeMarvelCharactersResponse: Response<MarvelCharactersResponseModel> =
+    val fakeMarvelCharacterResponse: Response<MarvelCharactersResponseModel> =
         Response.success(fakeMarvelCharactersResponseModel)
 
     val fakeCharactersRequestQueryModel: CharactersRequestQueryModel = CharactersRequestQueryModel(
@@ -207,32 +219,20 @@ object FakeDataFactory {
     val errorResponse: Response<MarvelCharactersResponseModel> =
         Response.error(404, "not found".toResponseBody(null))
 
-    fun fakeQueriedMarvelCharactersModel(query: String) = fakeMarvelCharactersModel.filter {
-        it.name == query
+    fun fakeQueriedMarvelCharactersModel(id: String) = fakeMarvelCharactersModel.filter {
+        it.id.toString() == id
     }
 
-    fun fakeQueriedResponseModel(query: String): MarvelCharactersResponseModel {
+    fun fakeQueriedResponseModel(id: String): MarvelCharactersResponseModel {
         val data = fakeMarvelCharactersResponseModel.data?.copy(
             results = fakeMarvelCharactersResponseModel.data?.results?.filter {
-                it?.name?.contains(
-                    query
-                )!!
+                it?.id.toString() == id
             }
         )
         return fakeMarvelCharactersResponseModel.copy(data = data)
     }
 
-    fun fakeQueriedMarvelCharactersResponse(query: String): Response<MarvelCharactersResponseModel> {
-        return Response.success(fakeQueriedResponseModel(query))
-    }
-
-    fun fakeQueryMapFrom(requestQueryModel: CharactersRequestQueryModel): Map<String, String> {
-        return buildMap {
-            with(requestQueryModel) {
-                nameStartsWith?.let { put("nameStartsWith", it) }
-                limit?.let { put("limit", it.toString()) }
-                offset?.let { put("offset", it.toString()) }
-            }
-        }
+    fun fakeQueriedMarvelCharactersResponse(id: String): Response<MarvelCharactersResponseModel> {
+        return Response.success(fakeQueriedResponseModel(id))
     }
 }

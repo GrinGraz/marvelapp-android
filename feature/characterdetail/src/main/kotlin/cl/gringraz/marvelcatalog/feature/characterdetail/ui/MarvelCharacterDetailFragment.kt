@@ -60,7 +60,7 @@ class MarvelCharacterDetailFragment : DialogFragment() {
     }
 
     private fun setupUiStateCollection() = safeLifecycle {
-        viewModel.marvelCharactersUiState.collect(::renderCharacterUiState)
+        viewModel.marvelCharacterUiState.collect(::renderCharacterUiState)
     }
 
     private fun setupCharacterDetails(

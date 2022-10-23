@@ -38,7 +38,11 @@ class MarvelCharacterModelTest {
                     id = 1L,
                     name = "name",
                     description = "description",
-                    thumbnail = ModelFactory.createThumbnail(ModelFactory.ModelState.Ok)
+                    thumbnail = ModelFactory.createThumbnail(ModelFactory.ModelState.Ok),
+                    comics = listOf(),
+                    series = listOf(),
+                    stories = listOf(),
+                    events = listOf()
                 )
 
                 assertEquals("description", modelWithDescription.getDescriptionOrDefault())

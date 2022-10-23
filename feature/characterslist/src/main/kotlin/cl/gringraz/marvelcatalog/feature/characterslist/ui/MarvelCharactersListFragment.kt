@@ -10,7 +10,7 @@ import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentChar
 import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersListUiState
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
-import cl.gringraz.marvelcatalog.feature.characterslist.presentation.Navigation.navigateToCharacterDetail
+import cl.gringraz.marvelcatalog.feature.characterslist.ui.Navigation.navigateToCharacterDetail
 import cl.gringraz.marvelcatalog.feature.characterslist.ui.adapter.MarvelCharactersListAdapter
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCharacterModel
