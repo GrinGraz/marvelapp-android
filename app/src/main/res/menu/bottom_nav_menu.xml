@@ -7,13 +7,8 @@
         android:title="Explore" />
 
     <item
-        android:id="@+id/navigation_favorites"
-        android:icon="@drawable/ic_favorites_star_24dp"
-        android:title="@string/title_favorites" />
-
-    <item
         android:id="@+id/navigation_search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_search_24"
         android:title="Search" />
 
 </menu>

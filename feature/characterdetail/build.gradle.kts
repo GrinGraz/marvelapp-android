@@ -47,6 +47,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    packagingOptions {
+        resources.pickFirsts.apply {
+            add("MANIFEST.MF")
+        }
+    }
 }
 
 dependencies {
@@ -60,23 +65,20 @@ dependencies {
 
     testImplementation(Deps.test.api)
     testImplementation(Deps.test.junit5)
-    testImplementation(Deps.test.params)
     testImplementation(Deps.test.kotlinTests)
     testImplementation(Deps.test.mockkAgent)
     testImplementation(Deps.test.mockkAndroid)
     testImplementation(Deps.coroutines.test)
-    testImplementation(Deps.androidxTest.testRules)
     testImplementation(Deps.androidxTest.junitExtensions)
     testRuntimeOnly(Deps.test.jupiterEngine)
-
     androidTestUtil(Deps.androidxTest.testOrchestrator)
     androidTestImplementation(Deps.androidxTest.testCore)
     androidTestImplementation(Deps.androidxTest.testRunner)
-    androidTestImplementation(Deps.androidxTest.espressoCore)
-    androidTestImplementation(Deps.androidxTest.espressoContrib)
-    androidTestImplementation(Deps.androidxTest.espressoIntents)
     androidTestImplementation(Deps.test.mockkAndroid)
     androidTestImplementation(Deps.test.mockkAgent)
+    debugImplementation(Deps.androidxTest.fragmentTest)
+    androidTestImplementation(Deps.androidxTest.junitKtx)
+    androidTestImplementation(Deps.test.barista) { exclude("org.jetbrains.kotlin") }
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.gringraz.marvelcatalog.feature.characterdetail.R
@@ -18,23 +18,17 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MarvelCharacterDetailFragment : DialogFragment() {
+class MarvelCharacterDetailFragment : Fragment() {
 
     private val viewModel = characterDetailViewModel()
     private val detailAdapter = MarvelCharacterDetailsAdapter()
     private var _binding: FragmentCharacterDetailBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.FullScreenDialogStyle)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
-        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
         return binding.root
     }
 
@@ -43,7 +37,7 @@ class MarvelCharacterDetailFragment : DialogFragment() {
         setupRecyclerView()
         setupUiStateCollection()
         with(requireArguments()) {
-            setupCharacterDetails(getString("name"), getString("description"), getString("url"))
+            setupCharacterDetails(getString("description"), getString("url"))
             loadCharacterDetails(getInt("id"))
         }
     }
@@ -64,15 +58,13 @@ class MarvelCharacterDetailFragment : DialogFragment() {
     }
 
     private fun setupCharacterDetails(
-        name: String?,
         description: String?,
         thumbnailUrl: String?,
     ) {
         with(binding) {
-            toolbar.title = name
-            toolbar.setNavigationOnClickListener { dismiss() }
             characterDescription.text = description
-            Picasso.get().load(thumbnailUrl).fit().into(characterImage)
+            Picasso.get().load(thumbnailUrl).error(R.drawable.ic_broken_image_24).fit()
+                .into(characterImage)
             characterImage.visibility = View.VISIBLE
             characterDescription.visibility = View.VISIBLE
         }

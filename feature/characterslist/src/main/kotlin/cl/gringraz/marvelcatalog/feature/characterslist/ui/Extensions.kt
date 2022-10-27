@@ -21,8 +21,8 @@ fun LifecycleOwner.safeLifecycle(block: suspend CoroutineScope.() -> Unit) {
     }
 }
 
+var job: Job? = null
 inline fun View.throttledClickListener(crossinline onClick: () -> Unit) {
-    var job: Job? = null
     setOnClickListener {
         if (job?.isCompleted != false) {
             job = CoroutineScope(Dispatchers.Main).launch {

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Marvel Catalog</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Marvel Catalog</string>
     <string name="title_favorites">Favorites</string>
 </resources>
