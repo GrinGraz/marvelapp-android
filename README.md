@@ -39,9 +39,9 @@ The **Marvel Catalog** app follows the SOLID and ![clean architecture](https://b
 
 ## Data layer
 
-The app has only a remote data source by `feature` module that use the `core:network` module. It is represented by a Retrofit `interface` requested by the data source implementation where the raw Retrofit `Response` is processed to return it corresponding model or error wrapped in the `Either` data type.
+The app has only a remote data source by `feature` module that use the `core:network` module. It is represented by a Retrofit `interface` requested by the data source suspended functions implementations where the raw Retrofit `Response` is processed to return it corresponding model or error wrapped in the ![Arrow](https://arrow-kt.io/docs/apidocs/arrow-core/arrow.core/-either/) `Either` data type.
 
-The repository implementation, defined in the domain, orchestrate the datasources and map the response model to a domain model with the key properties for the feature still wrapped in `Either`.
+The repository implementation orchestrates the data sources and maps the response model to a domain model with the key properties for the feature still wrapped in `Either`.
 
 This layer is requested by the repository interface defined in the domain layer.
 
@@ -56,7 +56,24 @@ This layer is requested by the use case interface.
 **This layer do not have any android dependencies**. 
 
 ## Presentation layer
-TBC
+
+The app has a single activity as entry point that launch the `feature` modules. Inside the modules the user interfaces are managed by an Android Fragment with a bare minimun logic to change elements visibilitiy reactively based on the state and data returned by the viewmodel in the form of a `StateFlow`. 
+
+From this layer all the requests are executed via Kotlin Coroutines using the android specific `CoroutineScope` finally the ViewModel is resposible of wraps the domain model to the expected flow.
+
+The app UI supports a simply dark mode based on device configuration.
+
+# Testing
+
+## Unit Test
+
+For these test the main goal besides making a safe net is to explicit each action inside of the software components what are being tested, as seen in TDD and BDD, using the basis of the gherkin language.
+
+To achieve this, the unit tests were leveraged on Junit5 and Mockk, in a mix of mocks and fakes. The component under test is a Spy that is executed with its real behavior and its dependencies are mocks that return fakes. All the tests have assertions besides exhaustive verifications and confirmations.
+
+The di, data, domain and presentation layer are 100% covered in each feature module.
+
+
 
 # License
 
