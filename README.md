@@ -135,7 +135,7 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 - Improve resources definitions (themes, string, styles, etc.).
 - Add missing docs and reference links.
 
-## Contributions
+# Contributions
 
 If you find any flawed spot, please feel free to open an issue with your suggestion or fix.
 
