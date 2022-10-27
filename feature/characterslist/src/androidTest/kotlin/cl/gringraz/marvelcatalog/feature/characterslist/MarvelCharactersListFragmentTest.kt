@@ -7,12 +7,7 @@ import com.adevinta.android.barista.assertion.BaristaListAssertions.assertDispla
 import com.adevinta.android.barista.assertion.BaristaListAssertions.assertListItemCount
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
-import com.adevinta.android.barista.interaction.BaristaClickInteractions
-import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
-import com.adevinta.android.barista.interaction.BaristaEditTextInteractions
-import com.adevinta.android.barista.interaction.BaristaEditTextInteractions.typeTo
 import com.adevinta.android.barista.interaction.BaristaListInteractions.scrollListToPosition
-import com.adevinta.android.barista.interaction.BaristaMenuClickInteractions
 import com.adevinta.android.barista.interaction.BaristaSleepInteractions.sleep
 import org.junit.Test
 import org.junit.runner.RunWith
