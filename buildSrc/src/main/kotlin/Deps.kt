@@ -1,6 +1,18 @@
 @file:Suppress("ClassName")
 
 object Deps {
+
+    object features {
+        const val common             = ":feature:common"
+        const val characterList      = ":feature:characterslist"
+        const val characterDetail    = ":feature:characterdetail"
+        const val favoriteCharacters = ":feature:favoritecharacters"
+    }
+
+    object core {
+        const val network            = ":core:network"
+    }
+
     object androidx {
         const val appCompat          = "androidx.appcompat:appcompat:1.5.1"
         const val constraintLayout   = "androidx.constraintlayout:constraintlayout:2.1.4"
@@ -18,16 +30,14 @@ object Deps {
         const val testCore          = "androidx.test:core:1.4.0"
         const val testRules         = "androidx.test:rules:1.4.0"
         const val testOrchestrator  = "androidx.test:orchestrator:1.4.0"
-        const val espressoIntents   = "androidx.test.espresso:espresso-intents:3.3.0"
-        const val espressoContrib   = "androidx.test.espresso:espresso-contrib:3.3.0"
         const val espressoCore      = "androidx.test.espresso:espresso-core:3.4.0"
         const val fragmentTest      = "androidx.fragment:fragment-testing:1.5.3"
     }
 
     object test {
+        const val junit4        = "junit:junit:4.13.2"
         const val junit5        = "org.junit.jupiter:junit-jupiter:5.8.2"
         const val api           = "org.junit.jupiter:junit-jupiter-api:5.8.2"
-        const val params        = "org.junit.jupiter:junit-jupiter-params:5.8.2"
         const val jupiterEngine = "org.junit.jupiter:junit-jupiter-engine:5.8.2"
         const val runner        = "org.junit.platform:junit-platform-runner:1.9.1"
         const val kotlinTests   = "org.jetbrains.kotlin:kotlin-test-junit:1.6.20"
@@ -37,8 +47,15 @@ object Deps {
     }
 
     object google {
-        const val material = "com.google.android.material:material:1.6.1"
-        const val gson     = "com.google.code.gson:gson:2.9.1"
+        const val material    = "com.google.android.material:material:1.6.1"
+        const val gson        = "com.google.code.gson:gson:2.9.1"
+        const val firebaseBom = "com.google.firebase:firebase-bom:31.0.1"
+
+        object firebase {
+            const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+            const val analytics   = "com.google.firebase:firebase-analytics-ktx"
+            const val performance   = "com.google.firebase:firebase-perf-ktx"
+        }
     }
 
     object squareup {
@@ -49,11 +66,11 @@ object Deps {
     }
 
     object thirdParty {
-        const val coil      = "io.coil-kt:coil:2.2.2"
         const val shimmer   = "dev.volo.shimmer:shimmer:0.6.0-alpha01" // facebook shimmer build from main branch
         const val timber    = "com.jakewharton.timber:timber:5.0.1"
         const val arrowCore = "io.arrow-kt:arrow-core:1.1.2"
         const val lottie    = "com.airbnb.android:lottie:5.2.0"
+        const val flagboard    = "com.github.GrinGraz:flagboard-android:0.0.1"
     }
 
     object coroutines {
@@ -84,17 +101,6 @@ object Deps {
         "androidx.test.espresso:espresso-core:3.4.0",
     )
 
-    val testing = listOf(
-        "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1",
-        "org.junit.jupiter:junit-jupiter-api:5.7.1",
-        "org.junit.jupiter:junit-jupiter-params:5.7.1",
-        "org.junit.jupiter:junit-jupiter-engine:5.7.1",
-        "org.junit.platform:junit-platform-runner:1.7.1",
-        "org.jetbrains.kotlin:kotlin-test-junit:1.6.20",
-        "io.mockk:mockk:1.10.6",
-        "io.mockk:mockk-android:1.10.6",
-    )
-
     val square = listOf(
         "com.squareup.retrofit2:retrofit:2.9.0",
         "com.squareup.retrofit2:converter-gson:2.9.0",
@@ -104,7 +110,6 @@ object Deps {
     )
 
     val third = listOf(
-        "io.coil-kt:coil:2.2.2",
         "dev.volo.shimmer:shimmer:0.6.0-alpha01", // facebook shimmer build from main branch
         "com.jakewharton.timber:timber:5.0.1",
         "io.arrow-kt:arrow-core:1.1.2",

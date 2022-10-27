@@ -55,8 +55,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:network"))
-    implementation(project(":feature:common"))
+    implementation(project(Deps.core.network))
+    implementation(project(Deps.features.common))
     implementation(Deps.google.gson)
     Deps.androidX.forEach { dep -> implementation(dep) }
     Deps.third.forEach { dep -> implementation(dep) }
