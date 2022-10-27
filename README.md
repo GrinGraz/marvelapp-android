@@ -43,37 +43,102 @@ The app has only a remote data source by `feature` module that use the `core:net
 
 The repository implementation orchestrates the data sources and maps the response model to a domain model with the key properties for the feature still wrapped in `Either`.
 
-This layer is requested by the repository interface defined in the domain layer.
+This layer is requested by the repository `interface` defined in the `domain` layer.
 
 **This layer do not have any android dependencies**. 
 
 ## Domain layer
 
-The domain layer does not depend on any layer. It contains the repository definition that expect to returns domain models, also has the app business actions, like get the characters or search for one, these are simple commands because of that they are functional interfaces. 
+The domain layer does not depend on any layer. It contains the repository definition that expect to returns domain models, also has the app business actions, like get the characters or search for one, these are simple commands because of that they are kotlin functional interfaces. 
 
-This layer is requested by the use case interface.
+This layer is requested by the use case `interface`.
 
 **This layer do not have any android dependencies**. 
 
 ## Presentation layer
 
-The app has a single activity as entry point that launch the `feature` modules. Inside the modules the user interfaces are managed by an Android Fragment with a bare minimun logic to change elements visibilitiy reactively based on the state and data returned by the viewmodel in the form of a `StateFlow`. 
+The app has a single activity as entry point that launch the `:feature:...` modules. Inside the modules the user interfaces are managed by an Android `Fragment` with a bare minimun logic to change elements visibilitiy reactively based on the state and data returned by the viewmodel in the form of a `StateFlow`. 
 
-From this layer all the requests are executed via Kotlin Coroutines using the android specific `CoroutineScope` finally the ViewModel is resposible of wraps the domain model to the expected flow.
+From this layer all the requests are executed via Kotlin Coroutines using the android specific `CoroutineScope` finally the `ViewModel` is resposible of wraps the domain model to the expected flow.
+
+Navigation is executed via deeplinks.
 
 The app UI supports a simply dark mode based on device configuration.
 
-# Testing
+**Stub `Activity`s, build and `Manifest` implementations are commented for independent module execution.**
+
+# Linting and Testing
+
+## Linting
+
+Detekt and Ktlint tasks are executed in the CI to ensure the style and good practices.
 
 ## Unit Test
 
-For these test the main goal besides making a safe net is to explicit each action inside of the software components what are being tested, as seen in TDD and BDD, using the basis of the gherkin language.
+For these test the main goal besides making a safe net is to explicit each action inside of the software components what are being tested, as seen in TDD and BDD, using the basis of the Gherkin language.
 
-To achieve this, the unit tests were leveraged on Junit5 and Mockk, in a mix of mocks and fakes. The component under test is a Spy that is executed with its real behavior and its dependencies are mocks that return fakes. All the tests have assertions besides exhaustive verifications and confirmations.
+To achieve this, the unit tests were leveraged on Junit5 and Mockk, in a mix of mocks and fakes. The component under test is a `spy` that is executed with its real behavior and its dependencies are mocks that return fakes. All the tests have assertions besides exhaustive verifications and confirmations.
 
-The di, data, domain and presentation layer are 100% covered in each feature module.
+The tests run for each push and pull request in the CI.
+
+The `di`, `data`, `domain` and `presentation` layer are 100% covered in each feature module.
 
 
+### Screenshots
+Detail                    |  Listing                   
+:-------------------------:|:-------------------------:|
+<img src="https://user-images.githubusercontent.com/6061374/198316044-fadca4cc-fe93-467b-a182-38a73a179da5.png" width="500"> | <img src="https://user-images.githubusercontent.com/6061374/198313756-2131f9e1-36da-49de-9886-aa36e143a035.png" width="500"> 
+
+## Instrumented Test
+
+The `Fragment`s happy path in each module are tested independendly using Junit4, androidx fragment testing tools and a Espresso wrapper library called Barista, that simplify the assertions and interactions with the UI elements.
+
+# Next Steps
+
+## Development Environment
+
+- Create product flavors.
+- Improve Gihub Actions CI (releases and tags creation).
+- Add Benchmarks.
+
+## Features
+
+- Implement favorites view.
+- Improve search view with filters.
+
+## Architecture And Modularization
+
+- Add a Compose version of UI and presentation layer.
+- Add Dagger/Hilt for dependency injection.
+- Review the `:feature:common` module to evaluate its scalability.
+- Review the design of complex use cases.
+- Creation of missing `:core` modules (navigation, test, desing system).
+- Creation of local data sources (Favorites feature).
+
+## Test and linting
+
+- Add Spotless.
+- Add Jacoco for full code coverage reports.
+- Add app instumented test.
+- Add navigation test.
+
+## Technical Debt
+
+- [IMPORTANT] Add internal visibility modifier to `:core` and `:feature` module components.
+- [IMPORTANT] Fix inconsistent behavior loading the character list when change of section before being loaded.
+- Clean up gradle dependencies experiments.
+- Management of string resources in view models.
+- Transform `:feature:common` into a Android library.
+- Remove error response model from `core:network`.
+- Improve poor test definitions and add unhappy path for instrumented test.
+- Add full suit of API error tests.
+- Improve resources definitions (themes, string, styles, etc.).
+
+## Contributions
+
+If you find any flawed spot, please feel free to open an issue with your suggestion or fix.
+
+<img src="https://user-images.githubusercontent.com/6061374/198330707-249e8c61-ebe7-40eb-99ec-094854860b32.gif" width="200">
 
 # License
 
