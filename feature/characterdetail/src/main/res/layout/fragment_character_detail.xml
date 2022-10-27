@@ -8,6 +8,7 @@
     android:animateLayoutChanges="true">
 
     <Toolbar
+        android:visibility="gone"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,14 +47,14 @@
                 android:id="@+id/character_image"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:contentDescription="Imagen del personaje de Marvel" />
+                android:contentDescription="@string/character_image_cd" />
 
             <TextView
                 android:id="@+id/section_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Section Name"
-                android:text="Who is"
+                android:text="@string/who_is_character_label"
                 android:textColor="@color/red_marvel_official"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
@@ -71,11 +72,11 @@
                 android:layout_marginEnd="@dimen/text_margin"
                 android:layout_marginBottom="@dimen/text_margin"
                 android:lineSpacingExtra="5dp"
-                android:textColor="@color/grey_marvel"
+                android:textColor="?attr/colorOnSecondary"
                 android:textSize="16sp"
                 android:visibility="invisible"
                 app:layout_constraintTop_toBottomOf="@id/character_image"
-                tools:text="Descripcion del personaje de marvel Descripcion del personaje de marvel"
+                tools:text="MArvel character description"
                 tools:visibility="visible" />
 
             <com.facebook.shimmer.ShimmerFrameLayout

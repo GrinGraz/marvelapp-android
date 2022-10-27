@@ -9,7 +9,7 @@
         android:id="@+id/character_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:contentDescription="Marvel character name"
+        android:contentDescription="@string/marvel_character_name_cd"
         android:foreground="@drawable/gradient_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

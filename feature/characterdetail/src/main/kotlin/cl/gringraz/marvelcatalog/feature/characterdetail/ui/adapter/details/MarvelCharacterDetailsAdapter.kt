@@ -34,9 +34,9 @@ class MarvelCharacterDetailsAdapter :
     }
 
     // Workaround to avoid set a fixed height to the RecyclerView
-    // and the wrap_content on onMeasure works as expected
+    // for the wrap_content works as expected
     private fun stubDetailsList() = buildList {
-        val stubDetailModel = CharacterDetailsModel("", listOf(ItemModel("", "")))
+        val stubDetailModel = CharacterDetailsModel(sectionName = "", sectionItems = listOf(ItemModel("", "")))
         add(stubDetailModel)
         add(stubDetailModel)
         add(stubDetailModel)

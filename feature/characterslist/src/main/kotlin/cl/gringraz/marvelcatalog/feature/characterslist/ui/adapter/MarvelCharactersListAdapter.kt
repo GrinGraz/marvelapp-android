@@ -62,6 +62,10 @@ class MarvelCharactersListAdapter(
         })
     }
 
+    fun submitSearch(characters: List<MarvelCharacterModel>) {
+        super.submitList(characters.toMutableList())
+    }
+
     fun interface ItemClickListener {
         fun onItemClick(item: MarvelCharacterModel)
     }

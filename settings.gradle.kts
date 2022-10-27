@@ -20,5 +20,6 @@ include(
     ":core:network",
     ":feature:characterslist",
     ":feature:characterdetail",
-    ":feature:common"
+    ":feature:common",
+    ":feature:favoritecharacters"
 )

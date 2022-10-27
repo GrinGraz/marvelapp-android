@@ -11,7 +11,7 @@ data class MarvelCharacterModel(
     val events: List<Event>
 ) {
     fun getDescriptionOrDefault(): String {
-        return if (description.isNullOrEmpty()) {
+        return if (description.isNullOrBlank()) {
             "We don't have the character's description right now."
         } else {
             description

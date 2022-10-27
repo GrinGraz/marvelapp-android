@@ -13,6 +13,7 @@ object Deps {
 
     object androidxTest {
         const val junitExtensions   = "androidx.test.ext:junit:1.1.3"
+        const val junitKtx          = "androidx.test.ext:junit-ktx:1.1.3"
         const val testRunner        = "androidx.test:runner:1.4.0"
         const val testCore          = "androidx.test:core:1.4.0"
         const val testRules         = "androidx.test:rules:1.4.0"
@@ -20,6 +21,7 @@ object Deps {
         const val espressoIntents   = "androidx.test.espresso:espresso-intents:3.3.0"
         const val espressoContrib   = "androidx.test.espresso:espresso-contrib:3.3.0"
         const val espressoCore      = "androidx.test.espresso:espresso-core:3.4.0"
+        const val fragmentTest      = "androidx.fragment:fragment-testing:1.5.3"
     }
 
     object test {
@@ -31,6 +33,7 @@ object Deps {
         const val kotlinTests   = "org.jetbrains.kotlin:kotlin-test-junit:1.6.20"
         const val mockkAgent    = "io.mockk:mockk-agent:1.13.2"
         const val mockkAndroid  = "io.mockk:mockk-android:1.13.2"
+        const val barista       = "com.adevinta.android:barista:4.2.0"
     }
 
     object google {

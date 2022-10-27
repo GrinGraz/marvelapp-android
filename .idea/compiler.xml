@@ -13,6 +13,8 @@
       <module name="Marvel_Catalog.feature.characterslist" target="11" />
       <module name="Marvel_Catalog.feature.common.main" target="11" />
       <module name="Marvel_Catalog.feature.common.test" target="11" />
+      <module name="Marvel_Catalog.feature.favoritecharacters" target="11" />
+      <module name="Marvel_Catalog.feature.mylibrary" target="11" />
       <module name="Marvel_Catalog.feature.mylibrary.lib.main" target="11" />
       <module name="Marvel_Catalog.feature.mylibrary.lib.test" target="11" />
       <module name="marvelapp-android.buildSrc" target="11" />

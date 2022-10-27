@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/characters_list_navigation"
+    app:startDestination="@id/favorite_characters">
+
+    <fragment
+        android:id="@+id/favorite_characters"
+        android:name="cl.gringraz.marvelcatalog.feature.favoritecharacters.ui.FavoritesFragment"
+        android:label="favorites">
+    </fragment>
+</navigation>
