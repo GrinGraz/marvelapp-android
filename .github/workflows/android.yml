@@ -9,6 +9,7 @@ on:
 env:
   publicKey: ${{ secrets.publickey }}
   privateKey: ${{ secrets.privatekey }}
+  jitpackToken: ${{ secrets.jitpacktoken }}
         
 jobs:
   build:
