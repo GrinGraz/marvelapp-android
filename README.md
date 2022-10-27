@@ -75,7 +75,7 @@ Detekt and Ktlint tasks are executed in the CI to ensure the style and good prac
 
 ## Unit Test
 
-For these test the main goal besides making a safe net is to explicit each action inside of the software components what are being tested, as seen in TDD and BDD, using the basis of the Gherkin language.
+For these test the main goal besides making a safe net, is to explicit each action inside of the software components what are being tested, as seen in TDD and BDD, using the basis of the Gherkin language.
 
 To achieve this, the unit tests were leveraged on Junit5 and Mockk, in a mix of mocks and fakes. The component under test is a `spy` that is executed with its real behavior and its dependencies are mocks that return fakes. All the tests have assertions besides exhaustive verifications and confirmations.
 
