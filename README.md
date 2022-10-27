@@ -29,13 +29,13 @@ There is an experimental branch where even the clean architecture layers are ind
 
 There is a `buildScr` module to provide gradle dependencies and configurations to the entire project. There are some experimental dependency implementations in the `build.gradle` files.
 
-<img width="700" alt="imagen" src="https://user-images.githubusercontent.com/6061374/197924641-81f15e84-311b-42b5-9aea-1d75e2c34e45.png">
+<img width="500" alt="imagen" src="https://user-images.githubusercontent.com/6061374/197924641-81f15e84-311b-42b5-9aea-1d75e2c34e45.png">
 
 # Architecture
 
 The **Marvel Catalog** app follows the SOLID and ![clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) principles. Each `feature` module contains 3 main layers `data`, `domain` and `presentation` that comunicate between them throught `interface`s using manual dependency injection, the module graph is internal and is created and requested in runtime from the `Fragment` by a function that provides the `ViewModel`, all other depedencies are file private and passed by contructor.
 
-<img width="700" alt="imagen" src="https://user-images.githubusercontent.com/6061374/197918031-0ab1ebdb-a8a6-4b1d-8d65-8e23a08cdbf1.png">
+<img width="500" alt="imagen" src="https://user-images.githubusercontent.com/6061374/197918031-0ab1ebdb-a8a6-4b1d-8d65-8e23a08cdbf1.png">
 
 ## Data layer
 
@@ -133,6 +133,7 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 - Improve poor test definitions and add unhappy path for instrumented test.
 - Add full suit of API error tests.
 - Improve resources definitions (themes, string, styles, etc.).
+- Add missing docs and reference links.
 
 ## Contributions
 
