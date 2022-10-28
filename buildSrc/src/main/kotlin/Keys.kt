@@ -24,6 +24,8 @@ object Keys {
             publicKey = System.getenv("publicKey")
             privateKey = System.getenv("privateKey")
             jitPackToken = System.getenv("jitpackToken")
+            keystorePass = System.getenv("releaseKeystorePass")
+            keystoreAlias = System.getenv("releaseKeystoreAlias")
         }
     }
 }

@@ -12,7 +12,7 @@ data class MarvelCharacterModel(
 ) {
     fun getDescriptionOrDefault(): String {
         return if (description.isNullOrBlank()) {
-            "We don't have the character's description right now."
+            "We don't have the character description right now."
         } else {
             description
         }

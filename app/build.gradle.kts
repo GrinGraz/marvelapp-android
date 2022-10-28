@@ -63,7 +63,7 @@ dependencies {
     implementation(Deps.google.firebase.crashlytics)
     implementation(Deps.google.firebase.analytics)
     implementation(Deps.google.firebase.performance)
-    implementation(Deps.thirdParty.flagboard)
+    // implementation(Deps.thirdParty.flagboard)
 
     testImplementation(Deps.test.junit4)
     androidTestImplementation(Deps.androidxTest.junitExtensions)
