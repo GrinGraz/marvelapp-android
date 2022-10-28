@@ -1,5 +1,6 @@
 package cl.gringraz.marvelcatalog.feature.common.data
 
+import androidx.annotation.Keep
 import cl.gringraz.corenetwork.RemoteError
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Comic
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Event
@@ -63,6 +64,7 @@ data class MarvelCharactersResponseModel(
     }
 }
 
+@Keep
 data class Data(
     @SerializedName("offset") val offset: Int?,
     @SerializedName("limit") val limit: Int?,
@@ -85,11 +87,13 @@ data class Results(
     @SerializedName("urls") val urls: List<Urls>?
 )
 
+@Keep
 data class Thumbnail(
     @SerializedName("path") val path: String?,
     @SerializedName("extension") val extension: String?
 )
 
+@Keep
 data class Category(
     @SerializedName("available") val available: Int?,
     @SerializedName("collectionURI") val collectionURI: String?,
@@ -102,6 +106,7 @@ data class Urls(
     @SerializedName("url") val url: String?
 )
 
+@Keep
 data class Items(
     @SerializedName("resourceURI") val resourceURI: String?,
     @SerializedName("name") val name: String?

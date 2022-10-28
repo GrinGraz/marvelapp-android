@@ -7,6 +7,8 @@ object Keys {
     var publicKey: String = ""
     var privateKey: String = ""
     var jitPackToken: String = ""
+    var keystorePass: String = ""
+    var keystoreAlias: String = ""
 
     fun initialize(file: File) {
         try {
@@ -16,6 +18,8 @@ object Keys {
             publicKey = authProperties["publicKey"].toString()
             privateKey = authProperties["privateKey"].toString()
             jitPackToken = authProperties["jitpackToken"].toString()
+            keystorePass = authProperties["keystorePass"].toString()
+            keystoreAlias = authProperties["keystoreAlias"].toString()
         } catch (ex: FileNotFoundException) {
             publicKey = System.getenv("publicKey")
             privateKey = System.getenv("privateKey")

@@ -18,6 +18,7 @@ dependencies {
     implementation(Deps.squareup.loggingInterceptor)
     implementation(Deps.google.gson)
     implementation(Deps.thirdParty.arrowCore)
+    implementation(Deps.androidx.annotations)
     testImplementation(kotlin("test"))
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 }

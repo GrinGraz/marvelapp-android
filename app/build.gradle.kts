@@ -10,6 +10,15 @@ android {
     namespace = "cl.gringraz.marvelcatalog"
     compileSdk = AppConfig.compileSdkVersion
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../upload-keystore.jks")
+            storePassword = Keys.keystorePass
+            keyAlias = Keys.keystoreAlias
+            keyPassword = Keys.keystorePass
+        }
+    }
+
     defaultConfig {
         applicationId = AppConfig.applicationId
         minSdk = AppConfig.minSdkVersion
@@ -24,6 +33,7 @@ android {
         release {
             isMinifyEnabled = true
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
         }
     }

@@ -8,6 +8,8 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/androidTestResultsUserPreferences.xml
+/.idea/deploymentTargetDropDown.xml
 .DS_Store
 /core/build
 /feature/build
@@ -17,3 +19,4 @@
 .cxx
 local.properties
 auth.properties
+upload-keystore.jks

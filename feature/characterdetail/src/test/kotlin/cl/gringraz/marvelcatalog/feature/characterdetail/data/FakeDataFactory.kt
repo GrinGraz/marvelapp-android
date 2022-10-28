@@ -164,7 +164,7 @@ object FakeDataFactory {
         )
     )
 
-    val fakeMarvelCharactersModel = listOf(
+    private val fakeMarvelCharactersModel = listOf(
         MarvelCharacterModel(
             id = 1,
             name = "name",
@@ -206,14 +206,6 @@ object FakeDataFactory {
 
     val fakeUnknownMarvelError = MarvelCharactersError(
         message = "Unknown error"
-    )
-
-    val fakeMarvelCharacterResponse: Response<MarvelCharactersResponseModel> =
-        Response.success(fakeMarvelCharactersResponseModel)
-
-    val fakeCharactersRequestQueryModel: CharactersRequestQueryModel = CharactersRequestQueryModel(
-        nameStartsWith = "second",
-        limit = 100
     )
 
     val errorResponse: Response<MarvelCharactersResponseModel> =
