@@ -105,6 +105,7 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 
 - Implement favorites view.
 - Improve search view with filters.
+- Add `SnackBar`s for show connections/server issues and retry.
 
 ## Architecture And Modularization
 
@@ -124,8 +125,8 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 
 ## Technical Debt
 
-- [IMPORTANT] Add internal visibility modifier to `:core` and `:feature` module components.
-- [IMPORTANT] Fix inconsistent behavior loading the character list when change of section before being loaded.
+- Add internal visibility modifier to `:core` and `:feature` module components.
+- Fix inconsistent behavior loading the character list when change of section before being loaded.
 - Clean up gradle dependencies experiments.
 - Management of string resources in view models.
 - Transform `:feature:common` into a Android library.
