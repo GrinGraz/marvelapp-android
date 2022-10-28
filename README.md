@@ -15,6 +15,8 @@ Listing                    |  Search                   | Detail
 
 The repository is ready to import in Android Studio, configured with Java 11 and Gradle. In order to request the Marvel API you should add an `auth.properties` file (ignored by VCS) to the root project directory containing two fields `privateKey` and `publicKey`, both keys provided by the Marvel developer platform. Also the keys can be configured as system enviroment variables, the `env var`s configuration is mandatory for the CI system, Github Actions in this case, to be able to run.
 
+** An internal tools is use for feature flag,
+
 # Modularization
 
 The project modularization has some key characteristics in mind loose coupling and high cohesion, easy to start collaborating, testability and low build times. The app components are splited in 3 main modules, `app`, `feature`s and `core`. 
@@ -33,7 +35,7 @@ There is a `buildScr` module to provide gradle dependencies and configurations t
 
 # Architecture
 
-The **Marvel Catalog** app follows the SOLID and ![clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) principles. Each `feature` module contains 3 main layers `data`, `domain` and `presentation` that comunicate between them throught `interface`s using manual dependency injection, the module graph is internal and is created and requested in runtime from the `Fragment` by a function that provides the `ViewModel`, all other depedencies are file private and passed by contructor.
+The **Marvel Catalog** app follows the SOLID and ![clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) principles. Each `feature` module contains 3 main layers `data`, `domain` and `presentation` that comunicate between them throught `interface`s using manual dependency injection, the module graph is internal and is created and requested in runtime from the `Fragment` to provide the `ViewModelProvider.Factory` to the `viewModels` delegate, all other depedencies are file private and passed by contructor.
 
 <img width="500" alt="imagen" src="https://user-images.githubusercontent.com/6061374/197918031-0ab1ebdb-a8a6-4b1d-8d65-8e23a08cdbf1.png">
 
@@ -122,17 +124,22 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 - Add Jacoco for full code coverage reports.
 - Add app instumented test.
 - Add navigation test.
+- Add mock web server.
+- Add Git hooks.
+- Add Danger.
 
 ## Technical Debt
 
 - Add internal visibility modifier to `:core` and `:feature` module components.
 - Fix inconsistent behavior loading the character list when change of section before being loaded.
+- Add network state listeners to avoid false requests
 - Clean up gradle dependencies experiments.
 - Management of string resources in view models.
 - Transform `:feature:common` into a Android library.
 - Remove error response model from `core:network`.
 - Improve poor test definitions and add unhappy path for instrumented test.
 - Add full suit of API error tests.
+- Instrumented test runs with real requests.
 - Improve resources definitions (themes, string, styles, etc.).
 - Add missing docs and reference links.
 

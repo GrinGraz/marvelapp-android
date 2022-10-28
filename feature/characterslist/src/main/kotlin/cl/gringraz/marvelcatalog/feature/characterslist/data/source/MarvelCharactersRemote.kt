@@ -22,6 +22,7 @@ class MarvelCharactersRemote(
         val queryMap = getQueryParamsOrEmpty(requestModel)
         return apiCall(dispatcher) { marvelApi.endpoints.getMarvelCharacters(queryStrings = queryMap) }
             .map { marvelCharactersResponse ->
+                println("PRINT ${marvelCharactersResponse.body()}")
                 marvelCharactersResponse.body()
             }
     }

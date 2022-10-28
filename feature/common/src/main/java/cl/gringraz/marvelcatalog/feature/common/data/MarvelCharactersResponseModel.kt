@@ -16,6 +16,7 @@ typealias Series = Category
 typealias Stories = Category
 typealias Events = Category
 
+@Keep
 data class MarvelCharactersResponseModel(
     @SerializedName("code") val code: Int?,
     @SerializedName("status") val status: String?,
@@ -73,6 +74,7 @@ data class Data(
     @SerializedName("results") val results: List<Results?>?
 )
 
+@Keep
 data class Results(
     @SerializedName("id") val id: Int?,
     @SerializedName("name") val name: String?,
@@ -101,6 +103,7 @@ data class Category(
     @SerializedName("returned") val returned: Int?
 )
 
+@Keep
 data class Urls(
     @SerializedName("type") val type: String?,
     @SerializedName("url") val url: String?
