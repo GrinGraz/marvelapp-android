@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "607963926399",
+    "project_id": "marvel-catalog-667f1",
+    "storage_bucket": "marvel-catalog-667f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607963926399:android:a212b8895f771a97ee944a",
+        "android_client_info": {
+          "package_name": "cl.gringraz.marvelcatalog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607963926399-f34h4jjhs21i1prp13ekk3tpfr9asl9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCub7Zd2up0IPMxHnW4cOvrE1Zu7J0SBlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607963926399-f34h4jjhs21i1prp13ekk3tpfr9asl9q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

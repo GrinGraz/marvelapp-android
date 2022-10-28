@@ -13,7 +13,7 @@ tasks.test {
 }
 
 dependencies {
-    implementation(project(":core:network"))
+    implementation(project(Deps.core.network))
     implementation(Deps.squareup.okhttp)
     implementation(Deps.squareup.loggingInterceptor)
     implementation(Deps.google.gson)

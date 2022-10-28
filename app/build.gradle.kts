@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -37,19 +40,24 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:characterslist"))
-    implementation(project(":feature:characterdetail"))
-    implementation(project(":feature:favoritecharacters"))
+    implementation(project(Deps.features.characterList))
+    implementation(project(Deps.features.characterDetail))
+    implementation(project(Deps.features.favoriteCharacters))
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
-    implementation("com.github.GrinGraz:flagboard-android:0.0.1")
+    implementation(platform(Deps.google.firebaseBom))
+    implementation(Deps.androidx.coreKtx)
+    implementation(Deps.androidx.appCompat)
+    implementation(Deps.androidx.navigationUi)
+    implementation(Deps.androidx.navigationFragment)
+    implementation(Deps.google.material)
+    implementation(Deps.google.firebase.crashlytics)
+    implementation(Deps.google.firebase.analytics)
+    implementation(Deps.google.firebase.performance)
+    implementation(Deps.thirdParty.flagboard)
+
+    testImplementation(Deps.test.junit4)
+    androidTestImplementation(Deps.androidxTest.junitExtensions)
+    androidTestImplementation(Deps.androidxTest.espressoCore)
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
 }
