@@ -15,6 +15,8 @@ Listing                    |  Search                   | Detail
 
 The repository is ready to import in Android Studio, configured with Java 11 and Gradle. In order to request the Marvel API you should add an `auth.properties` file (ignored by VCS) to the root project directory containing two fields `privateKey` and `publicKey`, both keys provided by the Marvel developer platform. Also the keys can be configured as system enviroment variables, the `env var`s configuration is mandatory for the CI system, Github Actions in this case, to be able to run.
 
+** An internal tools is use for feature flag,
+
 # Modularization
 
 The project modularization has some key characteristics in mind loose coupling and high cohesion, easy to start collaborating, testability and low build times. The app components are splited in 3 main modules, `app`, `feature`s and `core`. 
