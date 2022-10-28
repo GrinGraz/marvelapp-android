@@ -122,7 +122,9 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 - Add Jacoco for full code coverage reports.
 - Add app instumented test.
 - Add navigation test.
+- Add mock web server.
 - Add Git hooks.
+- Add Danger.
 
 ## Technical Debt
 
@@ -135,6 +137,7 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 - Remove error response model from `core:network`.
 - Improve poor test definitions and add unhappy path for instrumented test.
 - Add full suit of API error tests.
+- Instrumented test runs with real requests.
 - Improve resources definitions (themes, string, styles, etc.).
 - Add missing docs and reference links.
 
