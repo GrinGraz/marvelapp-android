@@ -122,6 +122,7 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 - Add Jacoco for full code coverage reports.
 - Add app instumented test.
 - Add navigation test.
+- Add Git hooks.
 
 ## Technical Debt
 
