@@ -11,8 +11,9 @@ env:
   privateKey: ${{ secrets.privatekey }}
   jitpackToken: ${{ secrets.jitpacktoken }}
   releaseKeystore: ${{ secrets.releasekeystore }}
-  keystorePass: ${{ secrets.releasekeystorepass }}
-  keystoreAlias: ${{ secrets.releasekeystorealias }}
+  releaseKeystoreDecryptPass: ${{ secrets.releasekeystoredecryptpass }}
+  releaseKeystorePass: ${{ secrets.releasekeystorepass }}
+  releaseKeystoreAlias: ${{ secrets.releasekeystorealias }}
         
 jobs:
   build:
@@ -30,7 +31,7 @@ jobs:
     - name: Restore keystore
       run: |
         echo "${{ secrets.releasekeystore }}" > upload-keystore.jks.asc
-        gpg -d --passphrase ${{ secrets.releasekeystorepass }} --batch upload-keystore.jks.asc > upload-keystore.jks
+        gpg -d --passphrase ${{ secrets.releasekeystoredecryptpass }} --batch upload-keystore.jks.asc > upload-keystore.jks
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
