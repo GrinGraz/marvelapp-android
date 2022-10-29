@@ -21,6 +21,7 @@ object Deps {
         const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:2.5.2"
         const val navigationUi       = "androidx.navigation:navigation-ui-ktx:2.5.2"
         const val coreKtx            = "androidx.core:core-ktx:1.9.0"
+        const val annotations        = "androidx.annotation:annotation:1.5.0"
     }
 
     object androidxTest {

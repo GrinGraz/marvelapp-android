@@ -214,9 +214,7 @@ object FakeDataFactory {
     fun fakeQueriedResponseModel(query: String): MarvelCharactersResponseModel {
         val data = fakeMarvelCharactersResponseModel.data?.copy(
             results = fakeMarvelCharactersResponseModel.data?.results?.filter {
-                it?.name?.contains(
-                    query
-                )!!
+                it?.name?.contains(query)!!
             }
         )
         return fakeMarvelCharactersResponseModel.copy(data = data)

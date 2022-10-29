@@ -11,7 +11,6 @@ import cl.gringraz.marvelcatalog.feature.common.data.Series
 import cl.gringraz.marvelcatalog.feature.common.data.Stories
 import cl.gringraz.marvelcatalog.feature.common.data.Thumbnail
 import cl.gringraz.marvelcatalog.feature.common.data.Urls
-import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.CharactersRequestQueryModel
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Comic
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.Event
 import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.ItemModel
@@ -164,7 +163,7 @@ object FakeDataFactory {
         )
     )
 
-    val fakeMarvelCharactersModel = listOf(
+    private val fakeMarvelCharactersModel = listOf(
         MarvelCharacterModel(
             id = 1,
             name = "name",
@@ -206,14 +205,6 @@ object FakeDataFactory {
 
     val fakeUnknownMarvelError = MarvelCharactersError(
         message = "Unknown error"
-    )
-
-    val fakeMarvelCharacterResponse: Response<MarvelCharactersResponseModel> =
-        Response.success(fakeMarvelCharactersResponseModel)
-
-    val fakeCharactersRequestQueryModel: CharactersRequestQueryModel = CharactersRequestQueryModel(
-        nameStartsWith = "second",
-        limit = 100
     )
 
     val errorResponse: Response<MarvelCharactersResponseModel> =

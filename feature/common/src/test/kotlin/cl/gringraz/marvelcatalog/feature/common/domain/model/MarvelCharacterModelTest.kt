@@ -50,7 +50,7 @@ class MarvelCharacterModelTest {
                 val modelWithoutDescription = modelWithDescription.copy(description = null)
 
                 assertEquals(
-                    "We don't have the character's description right now.",
+                    "We don't have the character description right now.",
                     modelWithoutDescription.getDescriptionOrDefault()
                 )
             }

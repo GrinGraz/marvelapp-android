@@ -11,11 +11,12 @@ import android.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.gringraz.marvelcatalog.feature.characterslist.R
 import cl.gringraz.marvelcatalog.feature.characterslist.databinding.FragmentCharacterListBinding
-import cl.gringraz.marvelcatalog.feature.characterslist.di.charactersViewModel
+import cl.gringraz.marvelcatalog.feature.characterslist.di.factory
 import cl.gringraz.marvelcatalog.feature.characterslist.presentation.MarvelCharactersViewModel
 import cl.gringraz.marvelcatalog.feature.characterslist.ui.Navigation.navigateToCharacterDetail
 import cl.gringraz.marvelcatalog.feature.characterslist.ui.adapter.MarvelCharactersListAdapter
@@ -27,7 +28,7 @@ import cl.gringraz.marvelcatalog.feature.common.domain.characters.model.MarvelCh
 
 class MarvelCharactersListFragment : Fragment() {
 
-    private val viewModel: MarvelCharactersViewModel = charactersViewModel()
+    private val viewModel: MarvelCharactersViewModel by viewModels { factory }
     private val charactersAdapter = MarvelCharactersListAdapter(::onItemClick, ::onLoadMoreItems)
     private lateinit var layoutManager: LinearLayoutManager
     private var _binding: FragmentCharacterListBinding? = null

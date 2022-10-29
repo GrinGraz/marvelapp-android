@@ -1,14 +1,11 @@
 package cl.gringraz.marvelcatalog
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import cl.gringraz.flagboard_android.Flagboard
 import cl.gringraz.marvelcatalog.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -25,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        createNavigationMenu(navView)
+        //createNavigationMenu(navView)
 
         val menuSet = buildSet {
             add(R.id.navigation_home)
@@ -38,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    /*
+    Internal feature flag tool
     private fun createNavigationMenu(navView: BottomNavigationView) {
         val menu = navView.menu
         if (Flagboard.getBoolean("favorites")) {
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             Flagboard.open(this)
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment_activity_main).navigateUp()

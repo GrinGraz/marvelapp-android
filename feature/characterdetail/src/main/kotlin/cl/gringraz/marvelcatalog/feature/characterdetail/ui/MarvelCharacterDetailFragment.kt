@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.gringraz.marvelcatalog.feature.characterdetail.R
 import cl.gringraz.marvelcatalog.feature.characterdetail.databinding.FragmentCharacterDetailBinding
-import cl.gringraz.marvelcatalog.feature.characterdetail.di.characterDetailViewModel
+import cl.gringraz.marvelcatalog.feature.characterdetail.di.factory
 import cl.gringraz.marvelcatalog.feature.characterdetail.domain.CharacterDetailsModel
 import cl.gringraz.marvelcatalog.feature.characterdetail.presentation.MarvelCharacterDetailUiState
+import cl.gringraz.marvelcatalog.feature.characterdetail.presentation.MarvelCharacterDetailViewModel
 import cl.gringraz.marvelcatalog.feature.characterdetail.ui.adapter.details.MarvelCharacterDetailsAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
@@ -20,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class MarvelCharacterDetailFragment : Fragment() {
 
-    private val viewModel = characterDetailViewModel()
+    private val viewModel: MarvelCharacterDetailViewModel by viewModels { factory }
     private val detailAdapter = MarvelCharacterDetailsAdapter()
     private var _binding: FragmentCharacterDetailBinding? = null
     private val binding get() = _binding!!
