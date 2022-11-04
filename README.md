@@ -133,6 +133,7 @@ The `Fragment`s happy path in each module are tested independendly using Junit4,
 - Add internal visibility modifier to `:core` and `:feature` module components.
 - Fix inconsistent behavior loading the character list when change of section before being loaded.
 - Add network state listeners to avoid false requests
+- Replace ListAdapter
 - Clean up gradle dependencies experiments.
 - Management of string resources in view models.
 - Transform `:feature:common` into a Android library.
